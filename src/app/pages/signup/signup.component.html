@@ -1,0 +1,133 @@
+<section class="user-form-part">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-10 col-md-12 col-lg-12 col-xl-10">
+                <div class="user-form-logo">
+                    <a><img src="assets/images/E-queue.png" alt="logo"></a>
+                </div>
+                <div class="user-form-card col-md-8 col-lg-6 mx-auto">
+                    <div class="user-form-title">
+                        <h2>Join Now!</h2>
+                        <p>Setup A New Account In A Minute</p>
+                    </div>
+                    <form [formGroup]="signUpForm">
+                        <div class="form-group">
+                            <input id="fullName" type="text" class="form-control" formControlName="fullName" placeholder="Enter Your name" [ngClass]="{ 'is-invalid': signUpFormSubmitted && f.fullName.errors}">
+                            <div *ngIf="signUpFormSubmitted && f.fullName.errors" class="invalid-feedback">
+                                <div *ngIf="f.fullName.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input id="userName" type="text" class="form-control" formControlName="userName" placeholder="Enter Your User Name" [ngClass]="{ 'is-invalid': signUpFormSubmitted && f.userName.errors}">
+                            <div *ngIf="signUpFormSubmitted && f.userName.errors" class="invalid-feedback">
+                                <div *ngIf="f.userName.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span class="">
+                                <input formControlName="mobileNo" class="form-control" type="number" id="mobileNo"
+                                    placeholder="Enter Your Mobile Number" [ngClass]="{ 'is-invalid': signUpFormSubmitted && f.mobileNo.errors ||
+                                    f.mobileNo.invalid && (f.mobileNo.dirty || f.mobileNo.touched)}" id="mobileNo" />
+                                <div *ngIf="signUpFormSubmitted && f.mobileNo.errors || f.mobileNo.invalid &&
+                                (f.mobileNo.dirty || f.mobileNo.touched) " class="invalid-feedback">
+                                    <div *ngIf="f.mobileNo.errors?.required">*Required</div>
+                                    <div *ngIf="f.mobileNo.errors?.pattern">*Please enter 10 digit mobile number</div>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="form-group">
+
+                            <input id="email" type="email" class="form-control" formControlName="email" placeholder="Enter Your Email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z]+\.[A-Za-z]{1,63}$" [ngClass]="{ 'is-invalid': signUpFormSubmitted && f.email.errors
+                        ||f.email.invalid && (f.email.dirty || f.email.touched)}">
+                            <div *ngIf="signUpFormSubmitted && f.email.errors || f.email.invalid && (f.email.dirty || f.email.touched)" class="invalid-feedback">
+                                <div *ngIf="f.email.errors?.required">*Required</div>
+                                <div *ngIf="f.email.errors?.pattern">*Enter valid email id</div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+
+                                        <input id="mobileNo" type="number" class="form-control" formControlName="mobileNo"
+                                            placeholder="Enter Your Mobile No"
+                                            [ngClass]="{ 'is-invalid': signUpFormSubmitted && f.mobileNo.errors}">
+                                        <div *ngIf="signUpFormSubmitted && f.mobileNo.errors" class="invalid-feedback">
+                                            <div *ngIf="f.mobileNo.errors.required">*Required</div>
+                                        </div>
+                                    </div> -->
+                        <!-- <div class="form-group">
+
+                                        <input id="email" type="email" class="form-control" formControlName="email"
+                                            placeholder="Enter Your Email"
+                                            [ngClass]="{ 'is-invalid': signUpFormSubmitted && f.email.errors}">
+                                        <div *ngIf="signUpFormSubmitted && f.email.errors" class="invalid-feedback">
+                                            <div *ngIf="f.email.errors.required">*Required</div>
+                                        </div>
+                                    </div> -->
+
+                        <!-- <div class="form-group">
+
+                            <input id="password" type="password" class="form-control" formControlName="password"
+                                placeholder="Enter Your Password"
+                                [ngClass]="{ 'is-invalid': signUpFormSubmitted && f.password.errors}">
+                            <div *ngIf="signUpFormSubmitted && f.password.errors" class="invalid-feedback">
+                                <div *ngIf="f.password.errors.required">*Required</div>
+                            </div>
+                        </div> -->
+
+                        <div class="form-group inner-addon right-addon">
+                            <div class="input-group input-group-merge form-password-toggle">
+                                <input [type]="passwordTextType ? 'text' : 'password'" formControlName="password" class="form-control pwd-control " style="border-radius: 5px;" [ngClass]="{ 'is-invalid error': signUpFormSubmitted && f.password.errors }" placeholder="Enter Your Password"
+                                    aria-describedby="login-password" tabindex="2" />
+                                <div class="input-border">
+                                    <i alt="show" style="margin-right: 30px ;" class="fa fa-eye eye-show mt-3" (click)="passwordTextType = !passwordTextType" [class.hide]="!passwordTextType"></i>
+                                    <i alt="hide" style="margin-right: 30px ;" class="fa fa-eye-slash eye-hide mt-3" (click)="passwordTextType = !passwordTextType" [class.hide]="passwordTextType"></i>
+                                </div>
+                            </div>
+                            <div *ngIf="signUpFormSubmitted && f.password.errors" class="invalid-feedback" [ngClass]="{ 'd-block': signUpFormSubmitted && f.password.errors }">
+                                <div *ngIf="f.password.errors.required">*Required</div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group inner-addon right-addon">
+                            <div class="input-group input-group-merge form-password-toggle">
+                                <input [type]="passwordText ? 'text' : 'password'" formControlName="confirmPassword" class="form-control pwd-control " style="border-radius: 5px;" [ngClass]="{ 'is-invalid error': signUpFormSubmitted && f.confirmPassword.errors }" placeholder="Confirm Your Password"
+                                    aria-describedby="login-password" tabindex="2" />
+                                <div class="input-border">
+                                    <i alt="show" style="margin-right: 30px ;" class="fa fa-eye eye-show mt-3" (click)="passwordText = !passwordText" [class.hide]="!passwordText"></i>
+                                    <i alt="hide" style="margin-right: 30px ;" class="fa fa-eye-slash eye-hide mt-3" (click)="passwordText = !passwordText" [class.hide]="passwordText"></i>
+                                </div>
+                            </div>
+                            <div *ngIf="signUpFormSubmitted && f.confirmPassword.errors" class="invalid-feedback" [ngClass]="{ 'd-block': signUpFormSubmitted && f.confirmPassword.errors }">
+                                <div *ngIf="f.confirmPassword.errors.required">*Required</div>
+                                <div *ngIf="f.confirmPassword.errors.mustMatch">*Password mismatch</div>
+
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" value="" id="check">
+                            <label class="form-check-label" for="check">Accept all the <a routerLink="#">Terms &
+                                    Conditions</a></label>
+                        </div> -->
+
+                        <div class="form-group form-check">
+                            <input type="checkbox" formControlName="acceptTerms" id="acceptTerms" class="form-check-input" [ngClass]="{ 'is-invalid': signUpFormSubmitted && f.acceptTerms.errors }" />
+                            <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
+                            <div *ngIf="signUpFormSubmitted && f.acceptTerms.errors" class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-button">
+                            <button type="submit" (click)="onSubmit()">register</button>
+                        </div>
+                    </form>
+                    <!-- </div> -->
+                </div>
+                <div class="user-form-remind col-md-6 mx-auto">
+                    <p>Already Have An Account?<a routerLink="/login">login here</a></p>
+                </div>
+                <!-- <div class="user-form-footer">
+                            <p>Greeny | &COPY; Copyright by <a href="#">Mironcoder</a></p>
+                        </div> -->
+            </div>
+        </div>
+    </div>
+</section>

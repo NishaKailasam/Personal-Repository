@@ -1,0 +1,188 @@
+<!--=====================================
+                    BANNER PART START
+        =======================================-->
+<!-- <section class="inner-section single-banner" style="background: url(assets/images/single-banner.jpg) no-repeat center;">
+    <div class="container">
+        <h2>all category</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">all-category</li>
+        </ol>
+    </div>
+</section> -->
+<!--=====================================
+                    BANNER PART END
+        =======================================-->
+
+
+<!--=====================================
+                    CATEGORY PART START
+        =======================================-->
+
+<div class="mt-5">
+
+    <section class="inner-section">
+        <!--
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="top-filter">
+                        <div class="filter-show">
+                            <label class="filter-label">Show :</label>
+                            <select class="form-select filter-select">
+                            <option value="1">12</option>
+                            <option value="2">24</option>
+                            <option value="3">36</option>
+                        </select>
+                        </div> -->
+        <!-- <div class="filter-short">
+                            <label class="filter-label">Short by :</label>
+                            <select class="form-select filter-select">
+                            <option selected>default</option>
+                            <option value="3">trending</option>
+                            <option value="1">featured</option>
+                            <option value="2">recommend</option>
+                        </select>
+                        </div> -->
+        <!-- </div>
+                </div>
+            </div>
+        </div>  -->
+        <div class="container">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-col-xl-4 m-1 justify-content-center">
+                <div class="col" *ngFor="let item of categoryArry ; let i = index">
+                    <div class="category-wrap">
+                        <div class="category-media">
+                            <img src="{{item.imageFileUrl}}" style="width: 140px; height: 120px;" >
+                            <div class="category-overlay overlay" (click)="category(item.id)">
+                                <a (click)="category(item.id)"><i class="fas fa-link"></i></a>
+                            </div>
+                        </div>
+                        <div class="category-meta">
+                            <!-- <div class="col-sm-4"> -->
+                            <h4>{{item.categoryName}}</h4>
+                            <p>({{item.productCount}} items)</p>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+
+
+            <!-- <div class="row">
+                <div class="col-lg-12 m-10">
+                    <div class="bottom-paginate">
+                        <p class="page-info">Showing 12 of 60 Results</p>
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" routerLink="#">
+                                    <i class="fas fa-long-arrow-alt-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link active" routerLink="#">1</a></li>
+                            <li class="page-item"><a class="page-link" routerLink="#">2</a></li>
+                            <li class="page-item"><a class="page-link" routerLink="#">3</a></li>
+                            <li class="page-item">...</li>
+                            <li class="page-item"><a class="page-link" routerLink="#">60</a></li>
+                            <li class="page-item">
+                                <a class="page-link" routerLink="#">
+                                    <i class="fas fa-long-arrow-alt-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+    <!--=====================================
+                    CATEGORY PART END
+        =======================================-->
+
+
+    <!--=====================================
+                    NEWSLETTER PART START
+        =======================================-->
+    <!-- <section class="news-part" style="background: url(assets/images/newsletter.jpg) no-repeat center;">
+
+        <div class="row ">
+            <div class="col-md-6">
+                <div class="news-text" style="margin-left: 10%;margin-top: 50px;">
+                    <h2>Get 20% Discount for Subscriber</h2>
+                    <p>Lorem ipsum dolor consectetur adipisicing accusantium</p>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <form class="news-form" style="margin-top: 60px;">
+                    <input type="text" placeholder="Enter Your Email Address">
+                    <button><span><i class="icofont-ui-email"></i>Subscribe</span></button>
+                </form>
+            </div>
+        </div>
+
+    </section> -->
+    <!--=====================================
+
+NEWSLETTER PART END
+        =======================================-->
+
+
+    <!--=====================================
+                    INTRO PART START
+        =======================================-->
+    <!-- <section class="intro-part">
+        <div class="container">
+            <div class="row intro-content">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="intro-wrap">
+                        <div class="intro-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="intro-content">
+                            <h5>free home delivery</h5>
+                            <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="intro-wrap">
+                        <div class="intro-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <div class="intro-content">
+                            <h5>instant return policy</h5>
+                            <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="intro-wrap">
+                        <div class="intro-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="intro-content">
+                            <h5>quick support system</h5>
+                            <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="intro-wrap">
+                        <div class="intro-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="intro-content">
+                            <h5>secure payment way</h5>
+                            <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+</div>
+<!--=====================================
+                    INTRO PART END
+        =======================================-->

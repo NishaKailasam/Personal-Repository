@@ -1,0 +1,290 @@
+
+<br>
+
+<!-- <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/all-category">category></a></li>
+      <li class="breadcrumb-item active" aria-current="page"></li>
+      <li class="breadcrumb-item " aria-current="page">{{singleCategory.name}}</li>
+
+  </ol>
+</nav> -->
+
+
+<section class="inner-section shop-part">
+  <ol class="breadcrumb breadcrumb-res" *ngIf="brandorder == 'category'">
+    <li class="breadcrumb-item"><a routerLink="/all-category">category</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{singleCategory.name}}</li>
+</ol>
+<ol class="breadcrumb breadcrumb-res" *ngIf="brandorder == 'brand'">
+  <li class="breadcrumb-item"><a routerLink="/brands">brand</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{singleBrand.name}}</li>
+</ol>
+
+  <div class="container">
+ 
+      <!-- <h2>about our company</h2> -->
+    
+    <div class="row content-reverse">
+      <div class="col-lg-3">
+        <form [formGroup]="priceForm">
+
+          <div class="shop-widget">
+            <h6 class="shop-widget-title">Filter by Price</h6>
+            <div class="shop-widget-group">
+              <input type="text" id="maxPrice" placeholder="Min - 00" class="form-control" formControlName="minPrice">
+
+              <input type="text" id="minPrice" placeholder="Max - 10k" class="form-control" formControlName="maxPrice">
+
+            </div>
+            <button class="shop-widget-btn" (click)="priceFilter()">
+              <i class="fas fa-search"></i>
+              <span>search</span>
+            </button>
+          </div>
+          <div class="shop-widget">
+            <form [formGroup]="ratingForm">
+              <h6 class="shop-widget-title">Filter by rating</h6>
+              <ul class="shop-widget-list">
+                <li class="input-size" *ngFor="let obj of ratingCategoryArr">
+                  <input type="checkbox" id="category" (click)="filterRating(obj.name, $event)">
+                  <div class="product-rating star-size" *ngIf="obj.name == '5.0' , '5'">
+
+                    <i class="active icofont-star star"></i>
+                    <i class="active icofont-star star"></i>
+                    <i class="active icofont-star star"></i>
+                    <i class="active icofont-star star"></i>
+                    <i class="active icofont-star star"></i>
+                  </div>
+                  <div class="product-rating star-size" *ngIf="obj.name == '4.0' , '4'">
+
+                    <i class="active icofont-star star"></i>
+                    <i class="active icofont-star star"></i>
+                    <i class="active icofont-star star"></i>
+                    <i class="active icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                  </div>
+                  <div class="product-rating star-size" *ngIf="obj.name == '3.0' , '3'">
+                    <i class="active icofont-star star"></i>
+                    <i class="active icofont-star star"></i>
+                    <i class="active icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                  </div>
+                  <div class="product-rating star-size" *ngIf="obj.name == '2.0', '2'">
+                    <i class="active icofont-star star"></i>
+                    <i class="active icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                  </div>
+                  <div class="product-rating star-size" *ngIf="obj.name == '1.0', '1'">
+                    <i class="active icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                  </div>
+                  <div class="product-rating star-size" *ngIf="obj.name == '0.0', '0'">
+                    <i class="icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                    <i class="icofont-star star"></i>
+                  </div>
+                  <span class="shop-widget-number count-size">{{obj.itemCount}}</span>
+                  <!-- <button class="shop-widget-btn" (click)="filterRating(obj.name)">
+                                                            <i class="far fa-trash-alt"></i>
+                                                            <span>clear filter</span>
+                                                        </button> -->
+                </li>
+              </ul>
+            </form>
+          </div>
+
+            <form [formGroup]="brandForm">
+              <div class="shop-widget" *ngIf="brandorder == 'category'">
+                <h6 class="shop-widget-title">Filter by brand</h6>
+
+                <ul class="shop-widget-list">
+                  <li *ngFor="let object of filterBrandArr">
+                    <div class="shop-widget-content">
+                      <input type="checkbox" (change)="getBrandProducts(object.id, $event)">
+                      <label for="brand1">{{object.name}}</label>
+                    </div>
+                    <span class="shop-widget-number">{{object.itemCount}}</span>
+                  </li>
+                </ul>
+                <!-- <button class="shop-widget-btn">
+                  <i class="far fa-trash-alt"></i>
+                  <span>clear filter</span>
+                </button> -->
+              </div>
+              <div class="shop-widget" *ngIf="brandorder == 'search'">
+                <h6 class="shop-widget-title">Filter by brand</h6>
+
+                <ul class="shop-widget-list">
+                  <li *ngFor="let object of filterArr">
+                    <div class="shop-widget-content">
+                      <input type="checkbox" (change)="getBrandProducts(object.id, $event)">
+                      <label for="brand1">{{object.name}}</label>
+                    </div>
+                    <span class="shop-widget-number">{{object.itemCount}}</span>
+                  </li>
+                </ul>
+                <!-- <button class="shop-widget-btn">
+                            <i class="far fa-trash-alt"></i>
+                            <span >clear filter</span>
+                        </button> -->
+              </div>
+            </form>
+
+          <div class="shop-widget" *ngIf="brandorder == 'brand'">
+            <h6 class="shop-widget-title">Filter by category</h6>
+
+            <!-- <input class="shop-widget-search" type="text" placeholder="Search..."> -->
+            <ul class="shop-widget-list">
+              <li *ngFor="let cateObj of filterCategoryArr">
+                <div class="shop-widget-content">
+                  <input type="checkbox" (click)="getCategoryProducts(cateObj.id,$event)">
+                  <label for="cate1">{{cateObj.name}} </label>
+                </div>
+                <span class="shop-widget-number">{{cateObj.itemCount}} </span>
+              </li>
+
+            </ul>
+          </div>
+
+          <!-- <div class="shop-widget" *ngIf="brandorder == 'search'">
+            <h6 class="shop-widget-title">Filter by category</h6>
+
+            <input class="shop-widget-search" type="text" placeholder="Search...">
+            <ul class="shop-widget-list">
+              <li *ngFor="let cateObj of filterCategoryArr">
+                <div class="shop-widget-content">
+                  <input type="checkbox" (click)="getCategoryProducts(cateObj.id,$event)">
+                  <label for="cate1">{{cateObj.name}} </label>
+                </div>
+                <span class="shop-widget-number">{{cateObj.itemCount}} </span>
+              </li>
+
+            </ul>
+          </div> -->
+          <br>
+          <div class="shop-widget" *ngIf="brandorder !== 'brand' && brandorder !== 'category'">
+            <h6 class="shop-widget-title">Filter by category</h6>
+
+            <!-- <input class="shop-widget-search" type="text" placeholder="Search..."> -->
+            <ul class="shop-widget-list">
+              <li *ngFor="let cateObj of filterCategory">
+                <div class="shop-widget-content">
+                  <input type="checkbox" (click)="getCategoryProducts(cateObj.id,$event)">
+                  <label for="cate1">{{cateObj.name}} </label>
+                </div>
+                <span class="shop-widget-number">{{cateObj.itemCount}} </span>
+              </li>
+
+            </ul>
+          </div>
+
+        </form>
+      </div>
+      <div class="col-lg-9">
+
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4">
+          <div class="noData cols-sm-2" *ngIf="productArr.length == 0">
+            No items available !
+          </div>
+          <div class="col" *ngFor="let obj of productArr;let i = index" >
+            <div class="product-card">
+              <div class="product-media">
+
+                <button class="product-wish wish" *ngIf="faverbtn">
+                  <!-- <i class="fas fa-heart" (click)="onFav(obj, true)"></i> -->
+                </button>
+                <button class="product-wish wish" *ngIf="favcolourbtn">
+                  <!-- <i class="fas fa-heart" style="color: rgb(30, 156, 13) !important;" (click)="onFav(obj)"></i> -->
+                </button>
+                <a class="product-image" routerLink="/product/products/{{obj.productDtlId}}">
+                  <img src="{{obj.fileUrl}}" alt="product">
+                </a>
+
+              </div>
+              <div class="product-content">
+                <div class="product-rating" *ngIf="obj.noOfStars == '5.0' , '5'">
+                  <i class="active icofont-star"></i>
+                  <i class="active icofont-star"></i>
+                  <i class="active icofont-star"></i>
+                  <i class="active icofont-star"></i>
+                  <i class="active icofont-star"></i>
+                </div>
+                <div class="product-rating" *ngIf="obj.noOfStars == '4.0' , '4'">
+                  <i class="active icofont-star"></i>
+                  <i class="active icofont-star"></i>
+                  <i class="active icofont-star"></i>
+                  <i class="active icofont-star"></i>
+                  <i class="icofont-star"></i>
+                </div>
+                <div class="product-rating" *ngIf="obj.noOfStars == '3.0' , '3'">
+                  <i class="active icofont-star"></i>
+                  <i class="active icofont-star"></i>
+                  <i class="active icofont-star"></i>
+                  <i class="icofont-star"></i>
+                  <i class="icofont-star"></i>
+                </div>
+                <div class="product-rating" *ngIf="obj.noOfStars == '2.0', '2'">
+                  <i class="active icofont-star"></i>
+                  <i class="active icofont-star"></i>
+                  <i class="icofont-star"></i>
+                  <i class="icofont-star"></i>
+                  <i class="icofont-star"></i>
+                </div>
+                <div class="product-rating" *ngIf="obj.noOfStars == '1.0', '1'">
+                  <i class="active icofont-star"></i>
+                  <i class="icofont-star"></i>
+                  <i class="icofont-star"></i>
+                  <i class="icofont-star"></i>
+                  <i class="icofont-star"></i>
+                </div>
+                <div class="product-rating" *ngIf="obj.noOfStars == '0'">
+                  <i class="icofont-star"></i>
+                  <i class="icofont-star"></i>
+                  <i class="icofont-star"></i>
+                  <i class="icofont-star"></i>
+                  <i class="icofont-star"></i>
+                </div>
+                <h6 class="product-name product-Name">
+                  <a>{{obj.productName}}</a>
+                </h6>
+                <h6 class="product-price">
+                  <del></del>
+                  <span>{{obj.priceWithUom}}</span>
+                </h6>
+                <div>
+                  <a class="product-add" title="Add to Cart" *ngIf="!obj.orderQty" (click)="addToCart(obj)">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span>add</span>
+                  </a>
+
+                  <div class="product-toprate" *ngIf="obj.orderQty">
+                    <div>
+                      <span class="ml-auto">
+                        <form id='myform' class="cart-items-number d-flex">
+                          <input class="action-minus" title="Quantity Minus" value='-' type="button" field='quantity'
+                            (click)="decreaseQuantity(obj)" />
+                          <input class="action-input" readonly title="Quantity Number" type="text" name="quantity"
+                            value="{{obj.orderQty}}">
+                          <input class="action-plus" title="Quantity Plus" value='+' type="button" field='quantity'
+                            (click)="increaseQuantity(obj)" />
+                        </form>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>

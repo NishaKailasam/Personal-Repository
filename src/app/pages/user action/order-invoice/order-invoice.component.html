@@ -1,0 +1,267 @@
+
+      <!--=====================================
+                    BANNER PART START
+        =======================================-->
+        <!-- <section class="inner-section single-banner" style="background: url(assets/images/single-banner.jpg) no-repeat center;">
+            <div class="container">
+                <h2>Order invoice</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a routerLink="shop-4column.html">shop grid</a></li>
+                    <li class="breadcrumb-item"><a routerLink="product-video.html">product details</a></li>
+                    <li class="breadcrumb-item"><a routerLink="checkout.html">checkout</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">order-Invoice</li>
+                </ol>
+            </div>
+        </section> -->
+        <!--=====================================
+                    BANNER PART END
+        =======================================-->
+
+
+        <!--=====================================
+                    INVOICE PART START
+        =======================================-->
+        <div class="mt-5 card-size">
+        <section class="inner-section invoice-part">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert-info">
+                            <p>Thank you! We have received your order.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="account-card" >
+                            <div class="account-title" >
+                                <h4>order received</h4>
+                            </div>
+                            <div class="account-content" >
+                                <div class="invoice-recieved" >
+
+                                    <h6>order number <span>{{orderObj.orderNo}}</span></h6>
+                                    <h6>order date <span>{{orderObj.orderPlacedDate}}</span></h6>
+                                    <h6>total amount <span>₹{{orderObj.grandTotal}}</span></h6>
+                                    <h6>payment method <span>{{orderObj.paymentMode}}</span></h6>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="account-card">
+                            <div class="account-title">
+                                <h4>Order Details</h4>
+                            </div>
+                            <div class="account-content">
+                                <ul class="invoice-details">
+                                    <li>
+                                        <h6>Total Item</h6>
+                                        <p>{{orderObj.numberOfItems}} Items</p>
+                                    </li>
+                                    <li>
+                                        <h6>Order Time</h6>
+                                        <p>{{orderObj.orderPlacedDate}}</p>
+                                    </li>
+                                    <li>
+                                        <h6>Delivery Time</h6>
+                                        <p>{{orderObj.actualDeliveryDate}}</p>
+                                    </li>
+                                    <li>
+                                        <h6>Delivery Location</h6>
+
+                                        <p>  {{deliveryObj.receiverName}},
+                                          {{deliveryObj.mobileNo}},
+                                          {{deliveryObj.location}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="account-card">
+                            <div class="account-title">
+                                <h4>Amount Details</h4>
+                            </div>
+                            <div class="account-content">
+                                <ul class="invoice-details">
+                                    <li>
+                                        <h6>Sub Total</h6>
+                                        <p>₹{{orderObj.subTotal}}</p>
+                                    </li>
+                                    <li>
+                                        <h6>Discount</h6>
+                                        <p>{{orderObj.discAmount}}</p>
+                                    </li>
+                                    <li>
+                                        <h6>Payment Method</h6>
+                                        <p>{{orderObj.paymentMode}}</p>
+                                    </li>
+                                    <li>
+                                        <h6>Total</h6>
+                                        <p>₹{{orderObj.grandTotal}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="table-scroll">
+                            <table class="table-list">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">S.No</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">brand</th>
+                                        <th scope="col">quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let orderProductObj of customerOrderItemsDTOList ; let i = index">
+                                        <td class="table-serial"><h6>{{i+1}}</h6></td>
+                                        <td class="table-image"><img src="{{orderProductObj.imageUrl}}"  alt="product"></td>
+                                        <td class="table-name"><h6>{{orderProductObj.productName}}</h6></td>
+                                        <td class="table-price"><h6>{{orderProductObj.priceWithUom}}</h6></td>
+                                        <td class="table-brand"><h6>{{orderProductObj.brandName}}</h6></td>
+                                        <td class="table-quantity"><h6>{{orderProductObj.orderQty}}</h6></td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td class="table-serial"><h6>02</h6></td>
+                                        <td class="table-image"><img src="assets/images/product/02.jpg" alt="product"></td>
+                                        <td class="table-name"><h6>product name</h6></td>
+                                        <td class="table-price"><h6>$19<small>/kilo</small></h6></td>
+                                        <td class="table-brand"><h6>Radhuni Masala</h6></td>
+                                        <td class="table-quantity"><h6>5</h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-serial"><h6>03</h6></td>
+                                        <td class="table-image"><img src="assets/images/product/03.jpg" alt="product"></td>
+                                        <td class="table-name"><h6>product name</h6></td>
+                                        <td class="table-price"><h6>$19<small>/kilo</small></h6></td>
+                                        <td class="table-brand"><h6>Pran Prio</h6></td>
+                                        <td class="table-quantity"><h6>2</h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-serial"><h6>04</h6></td>
+                                        <td class="table-image"><img src="assets/images/product/04.jpg" alt="product"></td>
+                                        <td class="table-name"><h6>product name</h6></td>
+                                        <td class="table-price"><h6>$19<small>/kilo</small></h6></td>
+                                        <td class="table-brand"><h6>Real Food</h6></td>
+                                        <td class="table-quantity"><h6>3</h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-serial"><h6>05</h6></td>
+                                        <td class="table-image"><img src="assets/images/product/05.jpg" alt="product"></td>
+                                        <td class="table-name"><h6>product name</h6></td>
+                                        <td class="table-price"><h6>$19<small>/kilo</small></h6></td>
+                                        <td class="table-brand"><h6>Rdhuni Company</h6></td>
+                                        <td class="table-quantity"><h6>7</h6></td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center mt-5">
+                        <a class="btn btn-inline" href="#">
+                            <i class="icofont-download"></i>
+                            <span>download invoice</span>
+                        </a>
+                        <div class="back-home">
+                            <a routerLink="/home">Back to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================
+                    INVOICE PART END
+        =======================================-->
+
+
+        <!--=====================================
+                    NEWSLETTER PART START
+        =======================================-->
+        <!-- <section class="news-part" style="background: url(assets/images/newsletter.jpg) no-repeat center;">
+
+            <div class="row ">
+                <div class="col-md-6">
+                    <div class="news-text" style="margin-left: 10%;margin-top: 50px;">
+                        <h2 >Get 20% Discount for Subscriber</h2>
+                        <p>Lorem ipsum dolor consectetur adipisicing accusantium</p>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <form class="news-form" style="margin-top: 60px;">
+                        <input type="text" placeholder="Enter Your Email Address">
+                        <button><span><i class="icofont-ui-email"></i>Subscribe</span></button>
+                    </form>
+                </div>
+            </div>
+
+        </section> -->
+        <!--=====================================
+                    NEWSLETTER PART END
+        =======================================-->
+
+
+        <!--=====================================
+                    INTRO PART START
+        =======================================-->
+        <!-- <section class="intro-part">
+            <div class="container">
+                <div class="row intro-content">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="intro-wrap">
+                            <div class="intro-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="intro-content">
+                                <h5>free home delivery</h5>
+                                <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="intro-wrap">
+                            <div class="intro-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <div class="intro-content">
+                                <h5>instant return policy</h5>
+                                <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="intro-wrap">
+                            <div class="intro-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="intro-content">
+                                <h5>quick support system</h5>
+                                <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="intro-wrap">
+                            <div class="intro-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <div class="intro-content">
+                                <h5>secure payment way</h5>
+                                <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+    </div>
+        <!--=====================================
+                    INTRO PART END
+        =======================================-->

@@ -1,0 +1,40 @@
+.inputfield {
+    width: 100% !important;
+}
+
+.cardwid {
+    width: 30% !important;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background: var(--white);
+    border: 1px solid var(--border);
+}
+
+.hide {
+    display: none;
+}
+
+.inner-addon {
+    position: relative;
+}
+
+.inner-addon .fa,
+.inner-addon .fas {
+    position: absolute;
+    // z-index: 100;
+    cursor: pointer;
+}
+
+.right-addon .fa,
+.right-addon .fas {
+    right: 0px;
+}
+
+.left-addon input {
+    padding-left: 30px;
+}
+
+.right-addon input {
+    padding-right: 30px;
+}

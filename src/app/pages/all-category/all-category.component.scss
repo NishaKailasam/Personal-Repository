@@ -1,0 +1,17 @@
+.row {
+    display: -ms-flexbox;
+    display: -webkit-inline-box;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 15px;
+    margin-left: 25px;
+    
+    .category-media{
+    cursor: pointer;
+    }
+
+}
+.overlay{
+    width: 140px;
+}
+

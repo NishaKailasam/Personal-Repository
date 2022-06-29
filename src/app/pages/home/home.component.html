@@ -1,0 +1,216 @@
+<section class="home-index-slider slider-arrow slider-dots">
+    <div class="banner-part banner-1">
+        <div class="container">
+            <div class="row align-items-center ">
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="banner-content">
+                        <h1>Free home delivery within 24 hours now.</h1>
+                        <p>Amazing things will happen when you listen to the consumer.
+                        </p>
+                        <div class="banner-btn mt-2">
+                            <a class="btn btn-inline" routerLink="/all-category">
+                                <i class="fas fa-shopping-basket"></i>
+                                <span>shop now</span>
+                            </a>
+                            <!-- <a class="btn btn-outline" href="">
+                                <i class="icofont-sale-discount"></i>
+                                <span>get offer</span>
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6  ">
+                    <div class="banner-img">
+                        <img src="assets/images/home/index/01.png" width="100%" class="" class="vegImg" alt="index">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <section class="section recent-part">
+    <div class="container">
+    </div>
+</section> -->
+<section class="section niche-part">
+    <div class="container">
+        <!-- <div class="row">
+            <div class="col-lg-12">
+                 <div class="section-heading">
+                  <i class="icofont-star"></i>
+                    <h2>Top Rating</h2>
+                </div> 
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="nav nav-tabs">
+                    <!-- <li>
+                        <a href="#top-order" class="tab-link active" data-bs-toggle="tab">
+                            <i class="icofont-price"></i>
+                            <span>top order</span>
+                        </a>
+                    </li> -->
+                    <li>
+                        <a class="tab-link" style="font-size:x-large;">
+                            <i class="icofont-star" id="star"></i>&nbsp;
+                            <span>top rating</span>
+                        </a>
+                    </li>
+                </ul>
+                <div>
+                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-">
+                        <div class="col" *ngFor="let listObj of productListArr;let i=index">
+
+                            <div *ngIf="i<4 || more" class="product-card">
+                                <div class="product-media">
+                                    <!-- <div class="product-label">
+                                <label class="label-text rate"></label>
+                            </div> -->
+                                    <button class="product-wish wish">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+
+                                    <a class="product-image  image" style="width: 200px;height: 200px;" routerLink="/product/products/{{listObj.productDtlId}}">
+
+                                        <img class="image-product" src="{{listObj.fileUrl}}"  alt="product"
+                                           >
+                                    </a>
+
+                                </div>
+
+                        <div class="product-content">
+                            <div class="product-rating" *ngIf="listObj.noOfStars == '5.0'">
+                                <i class="active icofont-star"></i>
+                                <i class="active icofont-star"></i>
+                                <i class="active icofont-star"></i>
+                                <i class="active icofont-star"></i>
+                                <i class="active icofont-star"></i>
+                            </div>
+                            <div class="product-rating" *ngIf="listObj.noOfStars == '4.0'">
+                                <i class="active icofont-star"></i>
+                                <i class="active icofont-star"></i>
+                                <i class="active icofont-star"></i>
+                                <i class="active icofont-star"></i>
+                                <i class="icofont-star"></i>
+                            </div>
+                            <div class="product-rating" *ngIf="listObj.noOfStars == '3.0'">
+                                <i class="active icofont-star"></i>
+                                <i class="active icofont-star"></i>
+                                <i class="active icofont-star"></i>
+                                <i class="icofont-star"></i>
+                                <i class="icofont-star"></i>
+                            </div>
+                            <div class="product-rating" *ngIf="listObj.noOfStars == '2.0'">
+                                <i class="active icofont-star"></i>
+                                <i class="active icofont-star"></i>
+                                <i class="icofont-star"></i>
+                                <i class="icofont-star"></i>
+                                <i class="icofont-star"></i>
+                            </div>
+                            <h6 class="product-name product-Name">
+                                {{listObj.productName}}
+                            </h6>
+                            <h6 class="product-price">
+
+                                        <span><small>{{listObj.priceWithUom}}</small></span>
+                                    </h6>
+
+                                    <div>
+                                        <a class="product-add" title="Add to Cart" *ngIf="!listObj.productId"
+                                            (click)=addToCart(listObj)>
+                                            <i class="fas fa-shopping-basket"></i>
+                                            <span>add</span>
+                                        </a>
+
+                                        <div class="product-toprate" *ngIf="listObj.productId">
+                                            <div>
+                                                <span class="ml-auto" href="">
+                                                    <form id='myform' class="cart-items-number d-flex">
+                                                        <input class="action-minus" title="Quantity Minus" value='-'
+                                                            type="button" field='quantity'
+                                                            (click)="decreaseQuantity(listObj)" />
+                                                        <input class="action-input" title="Quantity Number" readonly type="text"
+                                                            name="quantity" value="{{listObj.orderQty}}">
+                                                        <input class="action-plus" title="Quantity Plus" value='+'
+                                                            type="button" field='quantity'
+                                                            (click)="increaseQuantity(listObj)" />
+                                                    </form>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-btn-25">
+                    <a class="btn btn-outline" (click)="more =! more">
+                        <i class="fas fa-eye"></i>
+                        <span>{{more ? 'show less' : 'show More'}}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <section class="section brand-part mt-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-heading">
+                            <h2>shop by brands</h2>
+                        </div>
+                    </div>
+                </div>
+            <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4">
+                <div *ngFor="let brandObj of brandHomeArr.slice(0, 4); let i = index">
+                        <div class="container">
+                            <div class="row ">
+                                <div class="col-12">
+                                    <div class="section-heading">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="brand-slider slider-arrow row">
+                                <div class="brand-wrap col">
+                                    <div class="brand-media">
+                                        <!-- <img src="{{brandObj.fileUrl}}" (click)="brandGet(brandObj.id)">
+                                         <div class="brand-overlay" (click)="brand(brandObj.id)"> 
+                                            <a (click)="brand(brandObj.id) "><i class="fas fa-link"></i></a>
+                                        </div>
+                                    </div> -->
+                                    <img src="{{brandObj.fileUrl}}">
+                                        <div class="brand-overlay" (click)="brandGet(brandObj.id) ">
+                                            <a (click)="brandGet(brandObj.id) "><i class="fas fa-link"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="brand-meta">
+                                      <h4>{{brandObj.brandName}}</h4>
+                                        <p>({{brandObj.productCount}} items) </p>
+
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="section-btn-50">
+                <a routerLink="/brands"  class="btn btn-outline">
+                    <i class="fas fa-eye"></i>
+                    <span>view all brands</span>
+                </a>
+            </div>
+        </div>
+    </section>
+

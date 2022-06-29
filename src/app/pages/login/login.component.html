@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<section class="user-form-part">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-10 col-md-12 col-lg-12 col-xl-10">
+                <div class="user-form-logo">
+                    <a href="index.html"><img src="assets/images/E-queue.png" alt="logo"></a>
+                </div>
+                <div class="user-form-card col-md-8 col-lg-6 mx-auto">
+                    <div class="user-form-title">
+                        <h2>welcome!</h2>
+                        <p>Use your credentials to access</p>
+                    </div>
+                    <!-- <div class="user-form-group"> -->
+                    <!-- <ul class="user-form-social">
+                                    <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i>login with facebook</a></li>
+                                    <li><a href="#" class="twitter"><i class="fab fa-twitter"></i>login with twitter</a></li>
+                                    <li><a href="#" class="google"><i class="fab fa-google"></i>login with google</a></li>
+                                    <li><a href="#" class="instagram"><i class="fab fa-instagram"></i>login with instagram</a></li>
+                                </ul> -->
+                    <!-- <div class="user-form-divider">
+                                    <p>or</p>
+                                </div> -->
+                    <form [formGroup]="loginForm">
+
+                        <div class="form-group">
+
+                            <input id="userName" type="text" class="form-control" formControlName="userName" placeholder="Enter Your User Name" [ngClass]="{ 'is-invalid': loginFormSubmitted && f.userName.errors}">
+                            <div *ngIf="loginFormSubmitted && f.userName.errors" class="invalid-feedback">
+                                <div *ngIf="f.userName.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group inner-addon right-addon">
+                            <div class="input-group input-group-merge form-password-toggle" style="border-radius: 25%;">
+                              <input name="password" class="input-rudius"
+                              formControlName="password"
+                                  [type]="showPassword ? 'text' : 'password'"
+                                  class="form-control pwd-control"
+                                  id="password-field" placeholder="Enter Your Password"
+                                  [ngClass]="{ 'is-invalid error': loginFormSubmitted && f.password.errors }">
+                              <div class="input-border">
+
+                                <i alt="show" class="far fa-eye eye-show mt-1"
+                                (click)="showPassword = !showPassword"
+                                [class.hide]="!showPassword"
+                               ></i>
+                                <i alt="hide" class="far fa-eye-slash eye-hide mt-1"
+                                (click)="showPassword = !showPassword"
+                                [class.hide]="showPassword"></i>
+                              </div>
+                            </div>
+                            <div *ngIf="loginFormSubmitted && f.password.errors" class="invalid-feedback"
+                            [ngClass]="{ 'd-block': loginFormSubmitted && f.password.errors }">
+                            <div *ngIf="f.password.errors.required">*Required</div>
+                        </div>
+                          </div>  -->
+                        <div class="form-group inner-addon right-addon">
+                            <div class="input-group input-group-merge form-password-toggle" style="border-radius: 25%;">
+                                <input name="password" class="input-rudius" formControlName="password" [type]="showPassword ? 'text' : 'password'" class="form-control pwd-control" id="password-field" placeholder="Enter Your Password" style="border-radius: 5px;" [ngClass]="{ 'is-invalid error': loginFormSubmitted && f.password.errors }">
+                                <div class="input-border">
+                                    <i alt="show" style="margin-right: 30px ;" class="fa fa-eye eye-show mt-3" (click)="showPassword = !showPassword" [class.hide]="!showPassword"></i>
+                                    <i alt="hide" style="margin-right: 30px ;" class="fa fa-eye-slash eye-hide mt-3" (click)="showPassword = !showPassword" [class.hide]="showPassword"></i>
+                                </div>
+                            </div>
+                            <div *ngIf="loginFormSubmitted && f.password.errors" class="invalid-feedback" [ngClass]="{ 'd-block': loginFormSubmitted && f.password.errors }">
+                                <div *ngIf="f.password.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" value="" id="check">
+                            <label class="form-check-label" for="check">Remember Me</label>
+                        </div>
+                        <div class="form-button">
+                            <button type="submit" (click)="onSubmit()">login</button>
+                            <p>Forgot your password?<a a routerLink="/reset-password">reset here</a></p>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="user-form-remind col-md-6 mx-auto">
+                    <p>Don't have any account?<a routerLink="/signup">register here</a></p>
+                </div>
+                <!-- <div class="user-form-footer">
+                            <p>Greeny | & Copyright by <a href="#">Mironcoder</a></p>
+                        </div> -->
+            </div>
+        </div>
+    </div>
+</section>

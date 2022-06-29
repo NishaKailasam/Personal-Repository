@@ -1,0 +1,825 @@
+<!--=====================================
+                    BANNER PART START
+        =======================================-->
+<!-- <section class="inner-section single-banner" style="background: url(assets/images/single-banner.jpg) no-repeat center;">
+    <div class="container">
+        <h2>checkout</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a routerLink="shop-4column.html">shop grid</a></li>
+            <li class="breadcrumb-item active" aria-current="page">checkout</li>
+        </ol>
+    </div>
+</section> -->
+<!--=====================================
+                    BANNER PART END
+        =======================================-->
+
+
+<!--=====================================
+                    CHECKOUT PART START
+        =======================================-->
+
+<div class="mt-5 checkout">
+    <section class="inner-section checkout-part">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="account-card">
+                        <div class="account-title">
+                            <h4>Your order</h4>
+                        </div>
+                        <div class="account-content">
+                            <div class="table-scroll">
+                                <table class="table-list">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">S.No</th>
+                                            <th scope="col">Product</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">brand</th>
+                                            <th scope="col">quantity</th>
+                                            <th scope="col">action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngIf="topRatedService.getCartData()?.length == 0">
+                                            <td colspan="10" class="text-center font-weight-bold cartStyle">
+                                                Your Cart Is Empty
+                                            </td>
+                                        </tr>
+                                        <tr *ngFor="let listObj of productListArr ; let i = index">
+                                            <td class="table-serial">
+                                                <h6>{{i+1}}</h6>
+                                            </td>
+                                            <td class="table-image "><img class="image-pic" src="{{listObj.fileUrl}}" alt="product"></td>
+                                            <td class="table-name">
+                                                <h6>{{listObj.productName}}</h6>
+                                            </td>
+                                            <td class="table-price">
+                                                <h6>{{listObj.priceWithUom}}</h6>
+                                            </td>
+                                            <td class="table-brand">
+                                                <h6>{{listObj.brandName}}</h6>
+                                            </td>
+                                            <td class="table-quantity">
+                                                <h6>{{listObj.orderQty}}</h6>
+                                            </td>
+                                            <td class="table-action">
+                                                <a class="view" title="Quick View" data-bs-toggle="modal" data-bs-target="#product-view"><i class="fas fa-eye"
+                                                        (click)="openModal(listObj)"></i></a>
+                                                <a class="trash" (click)="removeWishlist(listObj.productId)" title="Remove Wishlist"><i class="icofont-trash"></i></a>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="chekout-coupon">
+                                <button class="coupon-btn" *ngIf="!showCouponCode" (click)="showCouponCode = !showCouponCode">Do you have a coupon code?</button>
+                                <div *ngIf="showCouponCode">
+                                    <form class="coupon-form">
+                                        <input type="text" placeholder="Enter your coupon code">
+                                        <button type="submit"><span>apply</span></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="checkout-charge">
+                                <ul>
+                                    <li>
+                                        <span>Sub total</span>
+                                        <span>₹{{calculateObj.totalCost}}</span>
+                                    </li>
+                                    <li>
+                                        <span>delivery fee</span>
+                                        <span>₹00.00</span>
+                                    </li>
+                                    <li>
+                                        <span>discount</span>
+                                        <span>₹00.00</span>
+                                    </li>
+                                    <li>
+                                        <span>Total</span>
+                                        <span>₹{{calculateObj.totalCost}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="account-card">
+                        <div class="account-title">
+                            <h4>contact number</h4>
+                            <!-- <button data-bs-toggle="modal" data-bs-target="#contact-add"
+                                        (click)="removeValidators()">add
+                                        contact</button> -->
+                            <button (click)="openCheckModal(contactAdd)">add
+                                contact</button>
+                        </div>
+                        <div class="text-center" *ngIf="contactArr.length == 0">
+                            <span class="text-center text-muted font-weight-bold">Mobile number not added
+                                yet</span>
+                        </div>
+                        <div class="account-content">
+                            <div class="row" *ngIf="contactArr.length > 0">
+
+                                <div class="col-md-6 col-lg-4 form-group" *ngFor="let contact of contactArr;let i=index ">
+
+                                    <div class="profile-card contact " (click)="selectContact(contact,i)" [ngClass]="{'border': i==this.activateContactIndex}">
+
+                                        <label for="name">{{contact.title}}</label><br>
+                                        <p>{{contact.mobileNo}}</p>
+
+                                        <ul>
+                                            <li><button class="edit icofont-edit" title="Edit This" (click)="editContact(contactAdd ,contact.id)"></button>
+                                            </li>
+                                            <li><button class="trash icofont-ui-delete" title="Remove This" data-bs-toggle="modal" data-bs-target="#deleteModal"></button></li>
+                                        </ul>
+                                    </div>
+                                    <div class="modal header" id="deleteModal">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <button class="modal-close" data-bs-dismiss="modal"><i
+                                                        class="icofont-close"></i></button>
+
+                                                <div class="modal-form mdl-mdl">
+                                                    <div class="form-title">
+                                                        <h3>Confirm delete</h3>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h6 class="text-center mt-2">Are you sure want to delete?
+                                                        </h6>
+                                                        <div class="modal-footer p-0 border-0">
+                                                            <div class="col-6 m-0 p-0">
+                                                                <button type="button" class="shop" data-bs-dismiss="modal">No</button></div>
+                                                            <div class="col-6 m-0 p-0">
+                                                                <button type="button" class="form-shop" (click)="deleteContact(contactAdd,contact.id)">Yes</button>
+                                                            </div>
+                                                            <!-- <button type="button" class="btn btn-primary  ml-2 " >Cancel</button> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="account-card">
+                        <div class="account-title">
+                            <h4>delivery address</h4>
+                            <button (click)="openCheckModal(addAddress)">add address</button>
+
+                        </div>
+
+                        <div class="text-center" *ngIf="addressArr.length == 0">
+                            <span class="text-center text-muted font-weight-bold">Delivery address not added
+                                        yet</span>
+                        </div>
+                        <div class="account-content">
+                            <div class="row" *ngIf="addressArr.length > 0">
+                                <div class="col-md-6 col-lg-4 alert fade show" *ngFor="let address of addressArr; let i=index">
+                                    <div class="profile-card address" (click)="selectAddress(address, i)" [ngClass]="{'border': i == activeAddressIndex}">
+                                        <h6>{{address.addressType}}</h6>
+                                        <p class="address">
+                                            {{address.landMark}}, {{address.addressLine1}},<br> {{address.postalCode}}, {{address.cityName}}
+                                        </p>
+                                        <ul>
+                                            <li><button class="edit icofont-edit" title="Edit This" (click)="editAddress(addAddress,address.id)"></button>
+                                            </li>
+                                            <li><button class="trash icofont-ui-delete" title="Remove This" data-bs-toggle="modal" data-bs-target="#deleteAddress"></button>
+                                            </li>
+                                        </ul>
+                                        <!-- <div class="deliver-here">
+                                             <button class="btn btn-inline"
+                                                        (click)="selectAddress(address, i)">
+                                                        Deliver Here
+                                             </button>
+                                            </div> -->
+                                    </div>
+                                    <div class="modal-change">
+                                        <div class="modal header" id="deleteAddress">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <button class="modal-close" data-bs-dismiss="modal"><i
+                                                        class="icofont-close"></i></button>
+                                                    <div class="modal-form mdl-mdl">
+                                                        <div class="form-title">
+                                                            <h3>Confirm delete</h3>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <h6 class="text-center mt-2">Are you sure want to delete?
+                                                            </h6>
+                                                            <div class="modal-footer p-0 border-0">
+                                                                <div class="col-6 m-0 p-0">
+                                                                    <button type="button" class="shop" data-bs-dismiss="modal">No</button></div>
+                                                                <div class="col-6 m-0 p-0">
+                                                                    <button type="button" class="form-shop" (click)="deleteAddress(addAddress,address.id)">Yes</button>
+                                                                </div>
+                                                                <!-- <button type="button" class="btn btn-primary  ml-2 " >Cancel</button> -->
+                                                                <!-- </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="account-card mb-0 pt-3">
+
+                        <div class="form-group form-check">
+                            <form [formGroup]="conditionForm">
+                                <input type="checkbox" formControlName="acceptTerms" id="acceptTerms" class="form-check-input" [ngClass]="{ 'is-invalid': conditionFormSubmitted && j.acceptTerms.errors }" />
+                                <label for="acceptTerms" class="form-check-label">By making this purchase you agree to
+                                    our
+                                    Terms & Conditions</label>
+                                <div *ngIf="conditionFormSubmitted && j.acceptTerms.errors" class="invalid-feedback">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="checkout-proced">
+                            <a class="btn btn-inline" *ngIf="deliveryAddressObj.id" (click)="onProceed()">Place your
+                                order</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=====================================
+                            CHECKOUT PART END
+                =======================================-->
+
+    <div class="modal fade" id="product-view">
+        <div class="modal-dialog">
+            <div class="modal-content modal-view">
+                <button class="modal-close icofont-close" data-bs-dismiss="modal"></button>
+                <div class="product-view">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="view-gallery">
+                                <div class="view-label-group">
+
+                                </div>
+                                <ul class="preview-slider slider-arrow">
+                                    <li><img src="{{productObj.fileUrl}}" class="view-image kattarika" alt="product">
+                                    </li>
+
+                                </ul>
+                                <ul class="thumb-slider">
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="view-details">
+                                <h3 class="view-name">
+                                    <a routerLink="product">{{productObj.productName}}</a>
+                                </h3>
+                                <div class="view-meta">
+                                    <p>SKU:<span>1234567</span></p>
+                                    <p>BRAND:<a>{{productObj.brandName}}</a></p>
+                                </div>
+                                <div class="view-rating" *ngIf="productObj.noOfStars == '5.0','5'">
+                                    <i class="active icofont-star"></i>
+                                    <i class="active icofont-star"></i>
+                                    <i class="active icofont-star"></i>
+                                    <i class="active icofont-star"></i>
+                                    <i class="active icofont-star"></i>
+                                </div>
+                                <div class="view-rating" *ngIf="productObj.noOfStars == '4.0','4'">
+                                    <i class="active icofont-star"></i>
+                                    <i class="active icofont-star"></i>
+                                    <i class="active icofont-star"></i>
+                                    <i class="active icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                </div>
+                                <div class="view-rating" *ngIf="productObj.noOfStars == '3.0','3'">
+                                    <i class="active icofont-star"></i>
+                                    <i class="active icofont-star"></i>
+                                    <i class="active icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                </div>
+                                <div class="view-rating" *ngIf="productObj.noOfStars == '2.0','2'">
+                                    <i class="active icofont-star"></i>
+                                    <i class="active icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                </div>
+                                <div class="view-rating" *ngIf="productObj.noOfStars == '1.0','1'">
+                                    <i class="active icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                </div>
+                                <div class="view-rating" *ngIf="productObj.noOfStars == '0'">
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                </div>
+                                <h3 class="view-price">
+                                    <span><small>{{productObj.priceWithUom}}</small></span>
+                                </h3>
+                                <p class="view-desc">{{productObj.description}}</p>
+                                <div class="view-list-group">
+                                    <label class="view-list-title">tags:</label>
+                                    <!-- <ul class="view-tag-list">
+                                                <li><a>organic</a></li>
+                                                <li><a>vegetable</a></li>
+                                                <li><a>chilis</a></li>
+                                            </ul> -->
+                                    <ul class="details-tag-list">
+                                        <li><a>{{productObj.tagsList}}</a></li>
+                                    </ul>
+                                </div>
+                                <!-- <div class="view-list-group">
+                                            <label class="view-list-title">Share:</label>
+                                            <ul class="view-share-list">
+                                                <li><a class="icofont-facebook" title="Facebook"></a></li>
+                                                <li><a class="icofont-twitter" title="Twitter"></a></li>
+                                                <li><a class="icofont-linkedin" title="Linkedin"></a></li>
+                                                <li><a class="icofont-instagram" title="Instagram"></a></li>
+                                            </ul>
+                                        </div> -->
+                                <div class="view-add-group">
+                                    <button class="product-add" title="Add to Cart" *ngIf="!productObj.productId" (click)=addToCart(productObj)>
+                                        <i class="fas fa-shopping-basket"></i>
+                                        <span>add to cart</span>
+                                    </button>
+                                    <div class="product-toprate" *ngIf="productObj.productId">
+                                        <div>
+                                            <span class="ml-auto" href="">
+                                                <form id='myform' class="cart-items-number d-flex">
+                                                    <input class="action-minus" title="Quantity Minus" value='-'
+                                                        type="button" field='quantity'
+                                                        (click)="decreaseQuantity(productObj)" />
+                                                    <input class="action-input" title="Quantity Number" type="text"
+                                                        name="quantity" value="{{productObj.orderQty}}">
+                                                    <input class="action-plus" title="Quantity Plus" value='+'
+                                                        type="button" field='quantity'
+                                                        (click)="increaseQuantity(productObj)" />
+                                                </form>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="view-action-group">
+                                        <a class="view-wish wish" href="#" title="Add Your Wishlist">
+                                            <i class="icofont-heart"></i>
+                                            <span>add to favourite</span>
+                                        </a>
+
+                                    </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--=====================================
+                            MODAL ADD FORM START
+                =======================================-->
+    <!-- contact add form -->
+    <ng-template #contactAdd let-modal>
+        <!-- <div class="modal header" id="contact"> -->
+
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <button class="modal-close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+                <form [formGroup]="contactForm">
+
+                    <div class="modal-form">
+                        <div class="form-title" *ngIf="!contactForm.value.id">
+                            <h3>add new contact</h3>
+
+                        </div>
+                        <div class="form-title" *ngIf="contactForm.value.id">
+                            <h3>Update contact</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <ng-select [items]="['PRIMARY','SECONDARY']" name="polId" id="title" bindLabel="name" bindValue="id" placeholder="Choose" formControlName="title" [ngClass]="{ 'is-invalid': contactFormSubmitted && k.title.errors}"></ng-select>
+                            <div *ngIf=" contactFormSubmitted && k.title.errors" class="invalid-feedback">
+                                <div *ngIf="k.title.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile">Mobile Number</label>
+                            <input class="form-control" type="number" placeholder="Enter your mobile number" formControlName="mobileNo" [ngClass]="{ 'is-invalid': contactFormSubmitted && k.mobileNo.errors ||
+                                            k.mobileNo.invalid && (k.mobileNo.dirty)}">
+                            <div *ngIf="contactFormSubmitted && k.mobileNo.errors || k.mobileNo.invalid &&
+                                        (k.mobileNo.dirty)" class="invalid-feedback">
+                                <div *ngIf="k.mobileNo.errors?.required">*Required</div>
+                                <div *ngIf="k.mobileNo.errors?.pattern ">*Enter 10 digit mobile number</div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="form-btn" type="submit" (click)="onClick(modal)">{{buttonText}}</button>
+                        </div>
+                        <!-- <div class="col-12" *ngIf="contactForm.value.id">
+                                        <button class="form-btn" type="submit" (click)="onSubmitContact(modal)">update
+                                            contact info</button>
+                                    </div> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </ng-template>
+    <!-- <div class="modal header" id="contact-add">
+
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+
+                        <form [formGroup]="contactForm">
+                            <div class="modal-form">
+                                <div class="form-title" *ngIf="!contactForm.value.id">
+                                    <h3>add new contact</h3>
+                                </div>
+                                <div class="form-title" *ngIf="contactForm.value.id">
+                                    <h3>Update contact</h3>
+                                </div>
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <ng-select [items]="['PRIMARY','SECONDARY']" name="polId" id="title" bindLabel="name"
+                                        bindValue="id" placeholder="Choose" formControlName="title"
+                                        [ngClass]="{ 'is-invalid': contactFormSubmitted && k.title.errors}">
+                                    </ng-select>
+                                    <div *ngIf="contactFormSubmitted && k.title.errors" class="invalid-feedback">
+                                        <div *ngIf="k.title.errors.required">*Required</div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="mobileNo">Mobile Number</label>
+                                    <input id="mobileNo" type="number" class="form-control" formControlName="mobileNo"
+                                        placeholder="Mobile Number"
+                                        [ngClass]="{ 'is-invalid': contactFormSubmitted && k.mobileNo.errors}">
+                                    <div *ngIf="contactFormSubmitted && k.mobileNo.errors" class="invalid-feedback">
+                                        <div *ngIf="k.mobileNo.errors.required">*Required</div>
+                                    </div>
+                                </div>
+
+                                <button class="form-btn" type="submit" (click)="onClick()" *ngIf="!contactForm.value.id">save
+                                    contact info</button>
+                                <button class="form-btn" type="submit" (click)="onClick()" *ngIf="contactForm.value.id">Update
+                                    contact info</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>  -->
+
+
+    <!-- address add form -->
+    <ng-template #addAddress let-modal>
+        <!-- <div class="modal header" id="address-add"> -->
+        <div class="modal-dialog modal-dialog-centered modal-size">
+            <div class="modal-content">
+
+
+                <button class="modal-close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <form class="modal-address" [formGroup]="addressForm">
+                    <div class="form-title" *ngIf="!addressForm.value.id">
+                        <h3>add new address</h3>
+                    </div>
+                    <div class="form-title" *ngIf="addressForm.value.id">
+                        <h3>Update address</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="addressType">Address Type</label>
+                                <ng-select [items]="['Home','Office']" name="polId" id="addressType" bindLabel="name" bindValue="id" placeholder="Choose" formControlName="addressType" [ngClass]="{ 'is-invalid': addressFormSubmitted && f.addressType.errors}">
+                                </ng-select>
+                                <div *ngIf="addressFormSubmitted && f.addressType.errors" class="invalid-feedback">
+                                    <div *ngIf="f.addressType.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" placeholder="name" class="form-control" formControlName="name" [ngClass]="{ 'is-invalid': addressFormSubmitted && f.name.errors}">
+                                <div *ngIf="addressFormSubmitted && f.name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.name.errors.required">*Required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="mobileNo">Mobile Number</label>
+                                <input type="number" class="form-control" placeholder="Mobile Number" formControlName="mobileNo" [ngClass]="{ 'is-invalid': addressFormSubmitted && f.mobileNo.errors ||
+                                            f.mobileNo.invalid && (f.mobileNo.dirty)}">
+                                <div *ngIf="addressFormSubmitted && f.mobileNo.errors || f.mobileNo.invalid &&
+                                        (f.mobileNo.dirty)" class="invalid-feedback">
+                                    <div *ngIf="f.mobileNo.errors?.required">*Required</div>
+                                    <div *ngIf="f.mobileNo.errors?.pattern ">*Enter 10 digit mobile number</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input ngx-google-places-autocomplete placeholder="Location" formControlName="location" (onAddressChange)="handleAddressChange($event)" #placesRef="ngx-places" class="form-control" [ngClass]="{ 'is-invalid': addressFormSubmitted && f.location.errors}">
+
+                                <div *ngIf="addressFormSubmitted && f.location.errors" class="invalid-feedback">
+                                    <div *ngIf="f.location.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="latitude">Latitude</label>
+                                <input id="latitude" type="text" class="form-control" formControlName="latitude" placeholder="Latitude" [ngClass]="{ 'is-invalid': addressFormSubmitted && f.latitude.errors}">
+                                <div *ngIf="addressFormSubmitted && f.latitude.errors" class="invalid-feedback">
+                                    <div *ngIf="f.latitude.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="longitude">Longitude</label>
+                                <input id="longitude" type="text" class="form-control" formControlName="longitude" placeholder="Longitude" [ngClass]="{ 'is-invalid': addressFormSubmitted && f.longitude.errors}">
+                                <div *ngIf="addressFormSubmitted && f.longitude.errors" class="invalid-feedback">
+                                    <div *ngIf="f.longitude.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="addressLine1">Address 1</label>
+                                <input id="addressLine1" type="text" class="form-control" formControlName="addressLine1" placeholder="Address 1" [ngClass]="{ 'is-invalid': addressFormSubmitted && f.addressLine1.errors}" />
+                                <div *ngIf="addressFormSubmitted && f.addressLine1.errors" class="invalid-feedback">
+                                    <div *ngIf="f.addressLine1.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="addressLine2">Address 2</label>
+                                <input id="addressLine2" type="text" class="form-control" placeholder="Address 2" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="landMark">Land Mark</label>
+                                <input id="landMark" type="text" class="form-control" formControlName="landMark" placeholder="Land Mark" [ngClass]="{ 'is-invalid': addressFormSubmitted && f.landMark.errors}">
+                                <div *ngIf="addressFormSubmitted && f.landMark.errors" class="invalid-feedback">
+                                    <div *ngIf="f.landMark.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="postalCode">Postal Code</label>
+                                <input id="postalCode" type="number" class="form-control" formControlName="postalCode" placeholder="Postal Code" [ngClass]="{ 'is-invalid': addressFormSubmitted && f.postalCode.errors}">
+                                <div *ngIf="addressFormSubmitted && f.postalCode.errors" class="invalid-feedback">
+                                    <div *ngIf="f.postalCode.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="countryId">Country</label>
+                                <ng-select [items]="countryArr" name="polId" id="countryId" bindLabel="name" bindValue="id" placeholder="Choose" formControlName="countryId" (change)="getState($event.id)" [ngClass]="{ 'is-invalid': addressFormSubmitted && f.countryId.errors}">
+                                </ng-select>
+                                <div *ngIf="addressFormSubmitted && f.countryId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.countryId.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="stateId">State</label>
+                                <ng-select [items]="stateArr" name="polId" id="stateId" bindLabel="name" bindValue="id" placeholder="Choose" formControlName="stateId" (change)="getCity($event)" [ngClass]="{ 'is-invalid': addressFormSubmitted && f.stateId.errors}">
+                                </ng-select>
+                                <div *ngIf="addressFormSubmitted && f.stateId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.stateId.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="cityId">City</label>
+                                <ng-select [items]="cityArr" name="polId" id="cityId" bindLabel="name" bindValue="id" placeholder="Choose" formControlName="cityId" [ngClass]="{ 'is-invalid': addressFormSubmitted && f.cityId.errors}">
+                                </ng-select>
+                                <div *ngIf="addressFormSubmitted && f.cityId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.cityId.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="form-btn" type="submit" (click)="onSubmit(modal)">{{buttonText}}</button>
+                    <!-- <button class="form-btn" type="submit" (click)="onSubmit(modal)" >Update
+                                address info</button> -->
+                </form>
+
+
+            </div>
+        </div>
+        <!-- </div> -->
+    </ng-template>
+    <!-- payment add form -->
+    <div class="modal fade" id="payment-add">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+                <form class="modal-form">
+                    <div class="form-title">
+                        <h3>add new payment</h3>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">card number</label>
+                        <input class="form-control" type="text" placeholder="Enter your card number">
+                    </div>
+                    <button class="form-btn" type="submit">save card info</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- =====================================
+                            MODAL ADD FORM END
+                ======================================= -->
+
+
+    <!--=====================================
+                            MODAL EDIT FORM START
+                =======================================-->
+    <!-- contact edit form -->
+    <!-- <div class="modal fade" id="contact-edit">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+                    <form class="modal-form">
+                        <div class="form-title">
+                            <h3>edit contact info</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">title</label>
+                            <select class="form-select">
+                                <option value="primary" selected>primary</option>
+                                <option value="secondary">secondary</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">number</label>
+                            <input class="form-control" type="text" value="+8801838288389">
+                        </div>
+                        <button class="form-btn" type="submit">save contact info</button>
+                    </form>
+                </div>
+            </div>
+        </div> -->
+
+    <!-- address edit form -->
+    <!-- <div class="modal fade" id="address-edit">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+                    <form class="modal-form">
+                        <div class="form-title">
+                            <h3>edit address info</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">title</label>
+                            <select class="form-select">
+                                <option value="home" selected>home</option>
+                                <option value="office">office</option>
+                                <option value="Bussiness">Bussiness</option>
+                                <option value="academy">academy</option>
+                                <option value="others">others</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">address</label>
+                            <textarea class="form-control"
+                                placeholder="jalkuri, fatullah, narayanganj-1420. word no-09, road no-17/A"></textarea>
+                        </div>
+                        <button class="form-btn" type="submit">save address info</button>
+                    </form>
+                </div>
+            </div>
+        </div> -->
+    <!--=====================================
+                            MODAL EDIT FORM END
+                =======================================-->
+
+
+    <!--=====================================
+                            NEWSLETTER PART START
+                =======================================-->
+    <!-- <section class="news-part" style="background: url(assets/images/newsletter.jpg) no-repeat center;">
+
+                    <div class="row ">
+                        <div class="col-md-6">
+                            <div class="news-text" style="margin-left: 10%;margin-top: 50px;">
+                                <h2 >Get 20% Discount for Subscriber</h2>
+                                <p>Lorem ipsum dolor consectetur adipisicing accusantium</p>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <form class="news-form" style="margin-top: 60px;" >
+                                <input type="text" placeholder="Enter Your Email Address">
+                                <button><span><i class="icofont-ui-email"></i>Subscribe</span></button>
+                            </form>
+                        </div>
+                    </div>
+
+                </section> -->
+
+    <!--=====================================
+                            NEWSLETTER PART END
+                =======================================-->
+
+
+    <!--=====================================
+                            INTRO PART START
+                =======================================-->
+    <!-- <section class="intro-part">
+            <div class="container">
+                <div class="row intro-content">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="intro-wrap">
+                            <div class="intro-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="intro-content">
+                                <h5>free home delivery</h5>
+                                <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="intro-wrap">
+                            <div class="intro-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <div class="intro-content">
+                                <h5>instant return policy</h5>
+                                <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="intro-wrap">
+                            <div class="intro-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="intro-content">
+                                <h5>quick support system</h5>
+                                <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="intro-wrap">
+                            <div class="intro-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <div class="intro-content">
+                                <h5>secure payment way</h5>
+                                <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+</div>

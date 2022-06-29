@@ -1,0 +1,629 @@
+<!-- <div class="header-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-7">
+                <div class="header-top-welcome">
+                    <p>Welcome to Ecomart in Your Dream Online Store!</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-5">
+                <ul class="header-top-list">
+                    <li><a routerLink="/offer">offers</a></li>
+                    <li><a routerLink="">need help</a></li>
+                    <li><a routerLink="/contact">contact us</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> -->
+<header class="header-part">
+  <div class="container">
+      <div class="header-content">
+          <div class="header-media-group">
+              <button class="header-user" title="My Account"><img src="{{authService.getUserProfile()}}" *ngIf="authService.getUserName()" routerLink="/profile"> </button>
+        
+              <!-- <button class="header-user"><img src="assets/images/user.png" *ngIf="!authService.getUserName()" routerLink="/login"></button> -->
+              <a class="logo-img" *ngIf="authService.getUserName()"><img  src="assets/images/E-queue.png" alt="logo" routerLink="/home"></a>
+              <a class="logo" *ngIf="!authService.getUserName()"><img  src="assets/images/E-queue.png" alt="logo" routerLink="/home"></a>
+              <a class="header-src" *ngIf="authService.getUserName()" title="My Orders"><i class="fas fa-shopping-basket" routerLink="/order-history" ></i></a>
+          </div>
+
+          <a class="header-logo">
+              <img src="assets/images/E-queue.png" alt="logo" routerLink="/home">
+          </a>
+          <a class="header-widget" title="My Account" *ngIf="authService.getUserName()" routerLink="/profile">
+              <img src="{{authService.getUserProfile()}}">
+              <span>{{authService.getUserName()}}</span>
+          </a>
+          <!-- <a class="header-widget" title="My Account" *ngIf="!authService.getUserName()" routerLink="/login">
+              <img src="assets/images/user.png"> -->
+              <!-- <span>{{authService.getUserName()}}</span> -->
+              <!-- <span>{{authService.getUserName()}}</span>
+          </a> -->
+
+          <form class="header-form" [formGroup]="SearchForm">
+              <input id="searchKey" type="text" placeholder="Search anything..." formControlName="searchKey">
+              <button (click)="search()" routerLink="/products/{{searchObj.searchKey}}"><i class="fas fa-search"></i>
+              </button>
+              <!-- <button (click)="search(searchObj.searchKey)"><i class="fas fa-search"></i>
+              </button> -->
+          </form>
+
+          <div class="header-widget-group">
+              <!-- <button class="header-widget" title="Favourites">
+                  <i  routerLink="fav" class="fas fa-heart"></i>
+                  <sup class="favCount">{{favProductArr.length}}</sup> -->
+                  <!-- <sup class="favCount"></sup> -->
+                <!-- <sup class="favCount" *ngIf="favProductArr.length == null">0</sup> -->
+              <!-- </button> -->
+              <div class="header-widget" *ngIf="authService.getUserName()">
+                <span>Total Price<small>₹{{calculateObj.totalCost}}</small></span>
+
+            </div>
+              <button class="header-widget header-cart active" (click)="sidebar = !sidebar;preventScroll()"
+                  title="Cartlist">
+                  <i class="fa fa-shopping-cart"></i>
+                  <sup class="cartCount">{{topRatedService.getCartData()?.length}}</sup>
+                <sup class="cartCount" *ngIf="topRatedService.getCartData() == null">0</sup>
+              </button>
+              <div class="header-widget p-2" *ngIf="authService.getUserName()">
+                  <i class="fas fa-sign-out-alt" title="Logout" (click)="logout()"></i>
+              </div>
+
+              <div>
+                <button class=" login-text ml-4 pb-4" style="width: 70px; height: 44px;" routerLink="/login" *ngIf="!authService.getUserName()">Login</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</header>
+
+<div class="side-bar" *ngIf="sidebar" (click)="sidebar = !sidebar;preventScroll()">
+
+</div>
+
+  <aside class="cart-sidebar " [ngClass]="{'active': sidebar}">
+   
+      <div class="cart-header">
+        <button class="cart-close" (click)="sidebar = !sidebar;preventScroll()">
+            <i class="icofont-close"></i></button>
+          <div class="cart-total">
+              <i class="fas fa-shopping-basket"></i>
+
+              <span>total item ({{topRatedService.getCartData()?.length}})</span>
+             
+          </div>
+         
+      </div>
+   
+      <ul class="cart-list">
+          <section *ngIf="productListArr == null || productListArr?.length == 0">
+              <div class="text-center font-weight-bold cartStyle mt-4">Your cart is empty!</div>
+              <div class="text-center font-weight-bold itemStyle mt-2"> Add items to it now.</div>
+              <div class="text-center mt-3 mb-5 " >
+                 <button type="submit" class="form-shop"  (click)="sidebar = !sidebar;preventScroll()" routerLink="/all-category">Shop now</button>
+              </div>
+           </section>
+          <li class="cart-item"  *ngFor="let listObj of productListArr">
+              <div class="cart-media">
+                  <a class="image"><img src="{{listObj.fileUrl}}" alt="product"></a>
+                  <button class="cart-delete"><i class="far fa-trash-alt" (click)="removeFromCart(listObj.productId , listObj.productDtlId)"></i></button>
+              </div>
+              <div class="cart-info-group">
+                  <div class="cart-info">
+                      <h6><a routerLink="product-single">{{listObj.productName}}</a></h6>
+                      <p>{{listObj.priceWithUom}}</p>
+                  </div>
+                  <div class="cart-action-group">
+                      <!-- <div class="product-action">
+                          <button class="action-minus" title="Quantity Minus" (click)="decreaseQuantity(listObj)"><i class="icofont-minus"></i></button>
+                          <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
+                          <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
+                      </div> -->
+                      <div class="product-action">
+                          <div>
+                           <span class="ml-auto" href="">
+                            <form id='myform' class="cart-items-number d-flex">
+                           <input class="action-minus" title="Quantity Minus" value='-'
+                            type="button" field='quantity' (click)="decreaseQuantity(listObj)"/>
+                           <input class="action-input" readonly title="Quantity Number" type="text" name="quantity"
+                               value="{{listObj.orderQty}}">
+                           <input class="action-plus" title="Quantity Plus" value='+' type="button" field='quantity' (click)="increaseQuantity(listObj)"/>
+                           </form>
+                           </span>
+                       </div>
+                       </div>
+                      <h6>₹{{listObj.orderQuantityAmount}}</h6>
+                  </div>
+                  <!-- <h6>$56.98</h6> -->
+              </div>
+          </li>
+          <!-- <li class="cart-item">
+              <div class="cart-media">
+                  <a routerLink=""><img src="assets/images/product/02.jpg" alt="product"></a>
+                  <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
+              </div>
+              <div class="cart-action-group">
+                  <div class="product-action">
+                      <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
+                      <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
+                      <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
+                  </div>
+                  <h6>$56.98</h6>
+              </div>
+          </div>
+      </li>
+      <li class="cart-item">
+          <div class="cart-media">
+              <a routerLink=""><img src="assets/images/product/03.jpg" alt="product"></a>
+              <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
+          </div>
+          <div class="cart-info-group">
+              <div class="cart-info">
+                  <h6><a routerLink="product-single">existing product name</a></h6>
+                  <p>Unit Price - $8.75</p>
+              </div>
+              <div class="cart-action-group">
+                  <div class="product-action">
+                      <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
+                      <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
+                      <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
+                  </div>
+                  <h6>$56.98</h6>
+              </div>
+          </div>
+      </li>
+      <li class="cart-item">
+          <div class="cart-media">
+              <a routerLink=""><img src="assets/images/product/04.jpg" alt="product"></a>
+              <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
+          </div>
+          <div class="cart-info-group">
+              <div class="cart-info">
+                  <h6><a routerLink="product-single">existing product name</a></h6>
+                  <p>Unit Price - $8.75</p>
+              </div>
+              <div class="cart-action-group">
+                  <div class="product-action">
+                      <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
+                      <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
+                      <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
+                  </div>
+                  <h6>$56.98</h6>
+              </div>
+          </div>
+      </li>
+      <li class="cart-item">
+          <div class="cart-media">
+              <a routerLink=""><img src="assets/images/product/05.jpg" alt="product"></a>
+              <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
+          </div>
+          <div class="cart-info-group">
+              <div class="cart-info">
+                  <h6><a routerLink="product-single">existing product name</a></h6>
+                  <p>Unit Price - $8.75</p>
+              </div>
+              <div class="cart-action-group">
+                  <div class="product-action">
+                      <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
+                      <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
+                      <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
+                  </div>
+                  <h6>$56.98</h6>
+              </div>
+          </li> -->
+      </ul>
+      <div class="cart-footer" *ngIf="topRatedService.getCartData()?.length != 0" >
+          <button class="coupon-btn"  *ngIf="!showCouponCode" (click)="showCouponCode = !showCouponCode">Do you have a coupon code?</button>
+          <div *ngIf="showCouponCode">
+          <form class="coupon-form">
+              <input type="text" placeholder="Enter your coupon code">
+              <button type="submit"><span>apply</span></button>
+          </form>
+      </div>
+          <a class="cart-checkout-btn">
+              <span class="checkout-label" (click)="sidebar = !sidebar;preventScroll()" *ngIf="!authService.getUserName()" routerLink="/login" [state]="{isLogin: true}">Proceed to Checkout</span>
+              <span class="checkout-label" (click)="sidebar = !sidebar;preventScroll()" *ngIf="authService.getUserName()" routerLink="/checkout">Proceed to Checkout</span>
+
+              <span class="checkout-price">₹{{calculateObj.totalCost}}</span>
+          </a>
+      </div>
+  </aside>
+
+
+<nav class="navbar-part">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="navbar-content">
+                  <ul class="navbar-list">
+                      <li class="navbar-item ">
+                          <a class="navbar-link" routerLink="" >home</a>
+
+                      </li>
+                      <li class="navbar-item">
+                          <a class="navbar-link" routerLink="all-category" > Categories</a>
+                      </li>
+
+                      <li class="navbar-item">
+                          <a class="navbar-link " routerLink="brands" >Brand</a>
+
+                      </li>
+                      <li class="navbar-item dropdown">
+                          <a class="navbar-link dropdown-arrow" *ngIf="authService.getUserName()">My Account</a>
+                          <ul class="dropdown-position-list">
+                              <!-- <li><a routerLink="/faq">faqs</a></li> -->
+                              <li><a routerLink="/offer">offers</a></li>
+                              <li><a routerLink="/profile">my profile</a></li>
+                              <!-- <li><a routerLink="/about">about us</a></li> -->
+                              <!-- <li><a routerLink="/wallet">my wallet</a></li>
+                              <li><a routerLink="fav">My favourite</a></li> -->
+                              <li><a routerLink="order-history">order history</a></li>
+                              <!-- <li><a routerLink="checkout">checkout</a></li> -->
+
+                          </ul>
+                      </li>
+                      <!-- <li class="navbar-item dropdown">
+                          <a class="navbar-link dropdown-arrow" *ngIf="authService.getUserName()">authentic</a>
+                          <ul class="dropdown-position-list">
+                              <li><a routerLink="/login">login</a></li>
+                              <li><a routerLink="/signup">register</a></li>
+                              <li><a routerLink="/reset-password">reset password</a></li>
+                              <li><a routerLink="/change-password">change password</a></li>
+                          </ul>
+                      </li> -->
+                      <!-- <li class="navbar-item dropdown">
+                          <a class="navbar-link dropdown-arrow">user action</a>
+                          <ul class="dropdown-position-list">
+
+                              <li><a routerLink="compareList">compare</a></li>
+
+
+                              <li><a routerLink="order-invoice">order invoice</a></li>
+                          </ul> -->
+                          <!-- <li class="navbar-item dropdown">
+                          <a class="navbar-link dropdown-arrow" routerLink="#">blogs</a>
+                          <ul  class="dropdown-position-list">
+                              <li><a routerLink="blog-grid">blog grid</a></li>
+                              <li><a routerLink="blog-standard">blog standard</a></li>
+                              <li><a routerLink="blog-details">blog details</a></li>
+                              <li><a routerLink="blog-author">blog author</a></li>
+                          </ul>
+                      </li> -->
+                      <!-- </li> -->
+
+
+                  </ul>
+                  <!-- <li class="navbar-item"> -->
+
+
+
+                <!-- </li> -->
+
+                  <!-- <div class="navbar-info-group">
+                      <div class="navbar-info">
+                          <i class="icofont-ui-touch-phone"></i>
+                          <p>
+                              <small>call us</small>
+                              <span>(+880) 183 8288 389</span>
+                          </p>
+                      </div>
+                      <div class="navbar-info">
+                          <i class="icofont-ui-email"></i>
+                          <p>
+                              <small>email us</small>
+                              <span>support@greeny.com</span>
+                          </p>
+                      </div>
+                  </div> -->
+              </div>
+          </div>
+      </div>
+  </div>
+</nav>
+<div class="category-sidebar">
+  <div class="category-header">
+      <h4 class="category-title">
+          <i class="fas fa-align-left"></i>
+          <span>categories</span>
+      </h4>
+      <button class="category-close"><i class="icofont-close"></i></button>
+  </div>
+  <ul class="category-list">
+      <li class="category-item">
+          <a class="category-link dropdown-link" href="#">
+              <i class="flaticon-vegetable"></i>
+              <span>vegetables</span>
+          </a>
+          <ul class="dropdown-list">
+              <li><a href="#">asparagus</a></li>
+              <li><a href="#">broccoli</a></li>
+              <li><a href="#">carrot</a></li>
+          </ul>
+      </li>
+      <li class="category-item">
+          <a class="category-link dropdown-link" href="#">
+              <i class="flaticon-groceries"></i>
+              <span>groceries</span>
+          </a>
+          <ul class="dropdown-list">
+              <li><a href="#">Grains & Bread</a></li>
+              <li><a href="#">Dairy & Eggs</a></li>
+              <li><a href="#">Oil & Fat</a></li>
+          </ul>
+      </li>
+      <li class="category-item">
+          <a class="category-link dropdown-link" href="#">
+              <i class="flaticon-fruit"></i>
+              <span>fruits</span>
+          </a>
+          <ul class="dropdown-list">
+              <li><a href="#">Apple</a></li>
+              <li><a href="#">Orange</a></li>
+              <li><a href="#">Strawberry</a></li>
+          </ul>
+      </li>
+      <li class="category-item">
+          <a class="category-link dropdown-link" href="#">
+              <i class="flaticon-dairy-products"></i>
+              <span>dairy farm</span>
+          </a>
+          <ul class="dropdown-list">
+              <li><a href="#">Egg</a></li>
+              <li><a href="#">milk</a></li>
+              <li><a href="#">butter</a></li>
+          </ul>
+      </li>
+      <li class="category-item">
+          <a class="category-link dropdown-link" href="#">
+              <i class="flaticon-crab"></i>
+              <span>sea foods</span>
+          </a>
+          <ul class="dropdown-list">
+              <li><a href="#">Lobster</a></li>
+              <li><a href="#">Octopus</a></li>
+              <li><a href="#">Shrimp</a></li>
+          </ul>
+      </li>
+      <li class="category-item">
+          <a class="category-link dropdown-link" href="#">
+              <i class="flaticon-salad"></i>
+              <span>diet foods</span>
+          </a>
+          <ul class="dropdown-list">
+              <li><a href="#">Salmon</a></li>
+              <li><a href="#">Potatoes</a></li>
+              <li><a href="#">Greens</a></li>
+          </ul>
+      </li>
+      <li class="category-item">
+          <a class="category-link dropdown-link" href="#">
+              <i class="flaticon-dried-fruit"></i>
+              <span>dry foods</span>
+          </a>
+          <ul class="dropdown-list">
+              <li><a href="#">noodles</a></li>
+              <li><a href="#">Powdered milk</a></li>
+              <li><a href="#">nut & yeast</a></li>
+          </ul>
+      </li>
+      <li class="category-item">
+          <a class="category-link dropdown-link" href="#">
+              <i class="flaticon-fast-food"></i>
+              <span>fast foods</span>
+          </a>
+          <ul class="dropdown-list">
+              <li><a href="#">mango</a></li>
+              <li><a href="#">plumsor</a></li>
+              <li><a href="#">raisins</a></li>
+          </ul>
+      </li>
+      <li class="category-item">
+          <a class="category-link dropdown-link" href="#">
+              <i class="flaticon-cheers"></i>
+              <span>drinks</span>
+          </a>
+          <ul class="dropdown-list">
+              <li><a href="#">Wine</a></li>
+              <li><a href="#">Juice</a></li>
+              <li><a href="#">Water</a></li>
+          </ul>
+      </li>
+      <li class="category-item">
+          <a class="category-link dropdown-link" href="#">
+              <i class="flaticon-beverage"></i>
+              <span>coffee</span>
+          </a>
+          <ul class="dropdown-list">
+              <li><a href="#">Cappuchino</a></li>
+              <li><a href="#">Espresso</a></li>
+              <li><a href="#">Latte</a></li>
+          </ul>
+      </li>
+      <li class="category-item">
+          <a class="category-link dropdown-link" href="#">
+              <i class="flaticon-barbecue"></i>
+              <span>meats</span>
+          </a>
+          <ul class="dropdown-list">
+              <li><a href="#">Meatball</a></li>
+              <li><a href="#">Sausage</a></li>
+              <li><a href="#">Poultry</a></li>
+          </ul>
+      </li>
+      <li class="category-item">
+          <a class="category-link dropdown-link" href="#">
+              <i class="flaticon-fish"></i>
+              <span>fishes</span>
+          </a>
+          <ul class="dropdown-list">
+              <li><a href="#">Agujjim</a></li>
+              <li><a href="#">saltfish</a></li>
+              <li><a href="#">pazza</a></li>
+          </ul>
+      </li>
+  </ul>
+  <div class="category-footer">
+      <p>All Rights Reserved by <a href="#">Mironcoder</a></p>
+  </div>
+</div>
+<div class="mobile-menu">
+    <a routerLink="/home" title="Home Page">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </a>
+    <button class="cate-btn" title="Category List" routerLink="all-category">
+        <i class="fas fa-list"></i>
+        <span>Categories</span>
+    </button>
+    <button class="cart-btn active" (click)="sidebar = !sidebar;preventScroll()" title="Cartlist">
+        <i class="fa fa-shopping-cart"></i>
+        <span>Cart</span>
+        <sup class="cartCount">{{topRatedService.getCartData()?.length}}</sup>
+      <sup class="cartCount" *ngIf="topRatedService.getCartData() == null">0</sup>
+    </button>
+    <a routerLink="brands" title="Brands">
+        <i class="fas fa-list"></i>
+        <span>Brands</span>
+    </a>
+    <a *ngIf="authService.getUserName()" (click)="logout()">
+        <i class="fas fa-sign-out-alt" title="Logout" ></i>
+        <span>Logout</span>
+    </a>
+    <a *ngIf="!authService.getUserName()" routerLink="/login">
+        <i class="fas fa-sign-in-alt" title="Login" ></i>
+        <span>Login</span>
+     </a>
+    <!-- <a routerLink="compare" title="Compare List">
+        <i class="fas fa-random"></i>
+        <span>compare</span>
+        <sup>0</sup>
+    </a> -->
+</div>
+<div class="nav-sidebar">
+  <div class="nav-header">
+      <a routerLink="#"><img src="assets/images/logo.png" alt="logo"></a>
+      <button class="nav-close"><i class="icofont-close"></i></button>
+  </div>
+  <div class="nav-content">
+      <div class="nav-btn">
+          <a routerLink="login" class="btn btn-inline">
+              <i class="fa fa-unlock-alt"></i>
+              <span>join here</span>
+          </a>
+      </div>
+      <!-- This commentable code show when user login or register -->
+      <!-- <div class="nav-profile">
+                  <a class="nav-user" routerLink="#"><img src="assets/images/user.png" alt="user"></a>
+                  <h4 class="nav-name"><a routerLink="profile">Miron Mahmud</a></h4>
+              </div> -->
+      <div class="nav-select-group">
+          <div class="nav-select">
+              <i class="icofont-world"></i>
+              <select class="select">
+                  <option value="english" selected>English</option>
+                  <option value="bangali">Bangali</option>
+                  <option value="arabic">Arabic</option>
+              </select>
+          </div>
+          <div class="nav-select">
+              <i class="icofont-money"></i>
+              <select class="select">
+                  <option value="english" selected>Doller</option>
+                  <option value="bangali">Pound</option>
+                  <option value="arabic">Taka</option>
+              </select>
+          </div>
+      </div>
+      <ul class="nav-list">
+          <li>
+              <a class="nav-link dropdown-link" href="#"><i class="icofont-home"></i>Home</a>
+              <ul class="dropdown-list">
+                  <li><a routerLink="home-grid">Home grid</a></li>
+                  <li><a routerLink="index">Home index</a></li>
+                  <li><a routerLink="home-classic">Home classic</a></li>
+                  <li><a routerLink="home-standard">Home standard</a></li>
+                  <li><a routerLink="home-category">Home category</a></li>
+              </ul>
+          </li>
+          <li>
+              <a class="nav-link dropdown-link" href="#"><i class="icofont-food-cart"></i>shop</a>
+              <ul class="dropdown-list">
+                  <li><a routerLink="shop-5column">shop 5 column</a></li>
+                  <li><a routerLink="shop-4column">shop 4 column</a></li>
+                  <li><a routerLink="shop-3column">shop 3 column</a></li>
+                  <li><a routerLink="shop-2column">shop 2 column</a></li>
+                  <li><a routerLink="shop-1column">shop 1 column</a></li>
+              </ul>
+          </li>
+          <li>
+              <a class="nav-link dropdown-link" href="#"><i class="icofont-page"></i>product</a>
+              <ul class="dropdown-list">
+                  <li><a routerLink="single-product-tab">product tab</a></li>
+                  <li><a routerLink="product-grid">product grid</a></li>
+                  <li><a routerLink="product-video">product video</a></li>
+                  <li><a routerLink="product-simple">product simple</a></li>
+              </ul>
+          </li>
+          <li>
+              <a class="nav-link dropdown-link" href="#"><i class="icofont-bag-alt"></i>my account</a>
+              <ul class="dropdown-list">
+                  <li><a routerLink="profile">profile</a></li>
+                  <li><a routerLink="wallet">wallet</a></li>
+                  <li><a routerLink="fav">favourite</a></li>
+                  <li><a routerLink="compare">compare</a></li>
+                  <li><a routerLink="checkout">checkout</a></li>
+                  <li><a routerLink="orderlist">order history</a></li>
+                  <li><a routerLink="invoice">order invoice</a></li>
+                  <li><a routerLink="email-template">email template</a></li>
+              </ul>
+          </li>
+          <li>
+              <a class="nav-link dropdown-link" href="#"><i class="icofont-lock"></i>authentic</a>
+              <ul class="dropdown-list">
+                  <li><a routerLink="login">login</a></li>
+                  <li><a routerLink="register">register</a></li>
+                  <li><a routerLink="reset-password">reset password</a></li>
+                  <li><a routerLink="change-password">change password</a></li>
+              </ul>
+          </li>
+          <li>
+              <a class="nav-link dropdown-link" href="#"><i class="icofont-book-alt"></i>blogs</a>
+              <ul class="dropdown-list">
+                  <li><a routerLink="blog-grid">blog grid</a></li>
+                  <li><a routerLink="blog-standard">blog standard</a></li>
+                  <li><a routerLink="blog-details">blog details</a></li>
+                  <li><a routerLink="blog-authorroducts">blog author</a></li>
+              </ul>
+          </li>
+          <li><a class="nav-link" routerLink="offer"><i class="icofont-sale-discount"></i>offers</a></li>
+          <li><a class="nav-link" routerLink="about"><i class="icofont-info-circle"></i>about us</a></li>
+          <li><a class="nav-link" routerLink="faq"><i class="icofont-support-faq"></i>need help</a></li>
+          <li><a class="nav-link" routerLink="contact"><i class="icofont-contacts"></i>contact us</a></li>
+          <li><a class="nav-link" routerLink="privacy"><i class="icofont-warning"></i>privacy policy</a></li>
+          <li><a class="nav-link" routerLink="coming-soon"><i class="icofont-options"></i>coming soon</a></li>
+          <li><a class="nav-link" routerLink="error"><i class="icofont-ui-block"></i>404 error</a></li>
+          <li><a class="nav-link" routerLink="login"><i class="icofont-logout"></i>logout</a></li>
+      </ul>
+      <div class="nav-info-group">
+          <div class="nav-info">
+              <i class="icofont-ui-touch-phone"></i>
+              <p>
+                  <small>call us</small>
+                  <span>(+880) 183 8288 389</span>
+              </p>
+          </div>
+          <div class="nav-info">
+              <i class="icofont-ui-email"></i>
+              <p>
+                  <small>email us</small>
+                  <span>support@greeny.com</span>
+              </p>
+          </div>
+      </div>
+      <div class="nav-footer">
+          <p>All Rights Reserved by <a href="#">Mironcoder</a></p>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,337 @@
+<!--=====================================
+                    BANNER PART START
+        =======================================-->
+<!-- <section class="inner-section single-banner" style="background: url(assets/images/single-banner.jpg) no-repeat center;">
+            <div class="container">
+                <h2>Order History</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Orderlist</li>
+                </ol>
+            </div>
+        </section> -->
+<!--=====================================
+                    BANNER PART END
+        =======================================-->
+
+
+<!--=====================================
+                    ORDERLIST PART START
+        =======================================-->
+
+<div class="mt-5">
+  <section class="inner-section orderlist-part">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="orderlist-filter">
+            <h5>total order <span>- ({{orderArr.length}})</span></h5>
+            <div class="filter-short">
+              <label class="form-label">sort by:</label>
+              <!-- <select class="form-select" (change)="getOrderStatus($event)">
+                                <option value="ALLORDERS" selected   >all order</option>
+                                <option value="CONFIRMED" >recieved order</option>
+                                <option value="PROGRESS"   >processed order</option>
+                                <option value="SHIPPED"   >shipped order</option>
+                                <option value="DELIVERED" >delivered order</option>
+                            </select> -->
+              <ng-select [items]="order" name="polId" [(ngModel)]="orderHistory" bindLabel="value" style="width: 135px;"
+                bindValue="id" (change)="getOrderStatus($event.status)" [searchable]="false"></ng-select>
+            </div>
+          </div>
+        </div>
+        <div class="noData mt-8 data-size" *ngIf="orderArr.length == 0">
+          No orders available !
+        </div>
+        <div class="row" *ngFor="let order of orderArr; let i= index" >
+
+
+
+          <!-- <button *ngIf="showReviewButton"
+            class="bg-danger text-white mt-2 ml-1 py-1 px-2 rounded small text-uppercase ml-xs-0" data-toggle="modal"
+            data-target="#reviewModal" (click)="openReviewModal(statusObj.customerOrderId)">REVIEW</button> -->
+
+          <div class="col-lg-12" data-toggle="collapse" data-target="#collapseOne" class="collapse show"
+            aria-expanded="true" aria-controls="collapseOne">
+            <div class="orderlist head-list">
+              <a role="button" class="orderlist-head"   *ngIf="order.orderStatus == 'CONFIRMED'"  (click)="showSubItem(i)" (click)="openReviewModal(reviewModal)" aria-hidden="true"
+                [attr.aria-controls]="'collapseOne'+ i">
+                <!-- <a>Sub</a> -->
+                <h5>order# {{order.orderNo}}</h5>
+                <h5>{{order.orderStatus}}</h5>
+              </a>
+              <a role="button" class="orderlist-head" data-toggle="collapse" [attr.href]="'#collapseOne'+ i "
+              data-target="#collapseOne{{i}}" aria-expanded="true" *ngIf="order.orderStatus !== 'CONFIRMED'"  (click)="showSubItem(i)"  aria-hidden="true"
+              [attr.aria-controls]="'collapseOne'+ i">
+              <!-- <a>Sub</a> -->
+              <h5>order# {{order.orderNo}}</h5>
+              <h5>{{order.orderStatus}}</h5>
+            </a>
+              <div class="orderlist-body" id="collapseOne{{i}}" id="collapseOne" *ngIf="visibleIndex == i"
+                class="collapse hide" aria-labelledby="headingOne" aria-labelledby="headingOne">
+                <div class="row">
+                  <div class="col-lg-12" *ngIf="order.orderStatus == 'CONFIRMED'">
+                    <div class="order-track">
+                      <ul class="order-track-list">
+                        <li class="order-track-item active">
+                          <i class="icofont-check"></i>
+                          <span>Order Confirmed</span>
+
+                        </li>
+                        <li class="order-track-item">
+                          <i class="icofont-close"></i>
+                          <span>Order Progressed</span>
+                        </li>
+                        <li class="order-track-item">
+                          <i class="icofont-close"></i>
+                          <span>Order Shipped</span>
+                        </li>
+                        <li class="order-track-item">
+                          <i class="icofont-close"></i>
+                          <span>Order Delivered</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg-12" *ngIf="order.orderStatus == 'PROGRESS'">
+                    <div class="order-track">
+                      <ul class="order-track-list">
+                        <li class="order-track-item active">
+                          <i class="icofont-check"></i>
+                          <span>Order Confirmed</span>
+                        </li>
+                        <li class="order-track-item active">
+                          <i class="icofont-check"></i>
+                          <span>Order Progressed</span>
+                        </li>
+                        <li class="order-track-item">
+                          <i class="icofont-close"></i>
+                          <span>Order Shipped</span>
+                        </li>
+                        <li class="order-track-item">
+                          <i class="icofont-close"></i>
+                          <span>Order Delivered</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+
+                  <div class="col-lg-12" *ngIf="order.orderStatus == 'SHIPPED'">
+                    <div class="order-track">
+                      <ul class="order-track-list">
+                        <li class="order-track-item active">
+                          <i class="icofont-check"></i>
+                          <span>Order Confirmed</span>
+                        </li>
+                        <li class="order-track-item active">
+                          <i class="icofont-check"></i>
+                          <span>Order Progressed</span>
+                        </li>
+                        <li class="order-track-item active">
+                          <i class="icofont-check"></i>
+                          <span>Order Shipped</span>
+                        </li>
+                        <li class="order-track-item">
+                          <i class="icofont-close"></i>
+                          <span>Order Delivered</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+
+                  <div class="col-lg-12" *ngIf="order.orderStatus == 'DELIVERED'">
+                    <div class="order-track">
+                      <ul class="order-track-list">
+                        <li class="order-track-item active">
+                          <i class="icofont-check"></i>
+                          <span>Order Confirmed</span>
+                        </li>
+                        <li class="order-track-item active">
+                          <i class="icofont-check "></i>
+                          <span>Order Progressed</span>
+                        </li>
+                        <li class="order-track-item active">
+                          <i class="icofont-check"></i>
+                          <span>Order Shipped</span>
+                        </li>
+                        <li class="order-track-item active">
+                          <i class="icofont-check"></i>
+                          <span>Order Delivered</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <ul class="orderlist-details">
+                      <li>
+                        <h6>order No</h6>
+                        <p>{{order.orderNo}}</p>
+                      </li>
+                      <li>
+                        <h6>Total Item</h6>
+                        <p>{{order.noOfItem}}</p>
+                      </li>
+                      <li>
+                        <h6>Order Time</h6>
+                        <p>{{order.orderDate}}</p>
+                      </li>
+                      <li>
+                        <h6>Delivery Time</h6>
+                        <p>{{order.deliveryDate}}</p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-4">
+                    <ul class="orderlist-details">
+                      <li>
+                        <h6>Sub Total</h6>
+                        <p>{{order.subTotal}}</p>
+                      </li>
+                      <li>
+                        <h6>discount</h6>
+                        <p>{{order.discAmount}}</p>
+                      </li>
+                      <li>
+                        <h6>delivery fee</h6>
+                        <p>{{order.deliveryFee}}</p>
+                      </li>
+                      <li>
+                        <h6>Total</h6>
+                        <p>{{order.grandTotal}}</p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="orderlist-deliver">
+                      <h6>Delivery Location</h6>
+                      <p>{{order.customerName}}, </p>
+                      <p>{{order.mobileNumber}},</p>
+                      <p> {{order.location}} </p>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="table-scroll">
+                    <table class="table-list">
+                      <thead>
+                        <tr>
+                          <th scope="col">S.No</th>
+                          <th scope="col">Product</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Price</th>
+                          <th scope="col">brand</th>
+                          <th scope="col">quantity</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <tr *ngFor="let orders of order.myOrdersDtoList; let j = index">
+                          <td class="table-serial">
+                            <h6>{{j+1}}</h6>
+                          </td>
+
+                          <td class="table-image"><img src="{{orders.fileUrl}}" style="height: 80px; width: 80px;"
+                              alt="product"></td>
+                          <td class="table-name">
+                            <h6>{{orders.productName}}</h6>
+                          </td>
+                          <td class="table-price">
+                            <h6>{{orders.salesRate}}/{{orders.uomName}}</h6>
+                          </td>
+                          <td class="table-brand">
+                            <h6>{{orders.brandName}}</h6>
+                          </td>
+                          <td class="table-quantity">
+                            <h6>{{orders.orderQty}}</h6>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <ng-template #reviewModal let-modal>
+            <!-- <div class="modal fade" id="reviewModal"> -->
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+
+                    <button class="modal-close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span>
+                    </button>
+
+                  <div class="modal-form">
+                    <form class="" [formGroup]="reviewForm" autocomplete="off">
+                      <h4 class="modal-title mb-3">Review</h4>
+                          <div class="form-group mt-2">
+                            <label class="">No Of Stars</label>
+                            <input type="number" class="form-control" min="0" max="5" placeholder="No Of Stars"
+                              formControlName="noOfStars" id="noOfStars" name="name" step="0.5" (keyup)="getRating($event)"
+                              [ngClass]="{ 'is-invalid': reviewSubmitted && p.noOfStars.errors || p.noOfStars.invalid && (p.noOfStars.dirty || p.noOfStars.touched)}">
+                            <div
+                              *ngIf="reviewSubmitted && p.noOfStars.errors || p.noOfStars.invalid && (p.noOfStars.dirty || p.noOfStars.touched)"
+                              class="invalid-feedback">
+                              <div
+                                *ngIf="p.noOfStars.errors?.pattern || p.noOfStars.errors?.maxlength || p.noOfStars.errors?.minlength">
+                                Stars must be maximum 5</div>
+                            </div>
+                            <ng-template #t let-fill="fill">
+                              <span class="star" [class.full]="fill === 100">
+                                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                              </span>
+                            </ng-template>
+                            <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [max]="5"></ngb-rating>
+                            <!-- <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block" >
+                             <li (click)="countStar(star)"
+                                 [ngClass]="{'selected': (star <= selectedValue)}">
+                                   <i class="fa fa-star"></i>
+                             </li>
+                         </ul> -->
+
+                          </div>
+
+
+                        <!-- <div class="col-sm-12 form-group">
+                          <label class="form-label">Reviews</label>
+                          <textarea class="form-control" placeholder="Reviews" formControlName="reviews">
+                          </textarea>
+                        </div> -->
+
+                    <div class="modal-footer p-0 border-0">
+                        <div class="col-6 m-0 p-0">
+                          <a type="button" class="shop"   data-toggle="collapse" [attr.href]="'#collapseOne'+ i "
+                          data-target="#collapseOne{{i}}" aria-expanded="true" (click)="modal.dismiss('Cross click')">Close</a>
+                        </div>
+                        <div class="col-6 m-0 p-0">
+                          <button type="submit" class="form-shop"
+                            (click)="reviewCompleted()">{{buttonText}}</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+            </div>
+            </div>
+            <!-- </div> -->
+            </ng-template>
+
+
+
+
+        </div>
+
+      </div>
+    </div>
+
+
+  </section>
+
+</div>
+

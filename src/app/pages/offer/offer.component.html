@@ -1,0 +1,58 @@
+<!--=====================================
+                    BANNER PART START
+        =======================================-->
+<!-- <section class="inner-section single-banner" style="background: url(assets/images/single-banner.jpg) no-repeat center;">
+    <div class="container">
+        <h2>Discount & offers</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">offer</li>
+        </ol>
+    </div>
+</section> -->
+<!--=====================================
+                    BANNER PART END
+        =======================================-->
+<div class="mt-5">
+<section class="inner-section offer-part">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let offer of offerArr; let i= index">
+                <div class="offer-card ">
+                    <a><img src="assets/images/offer/10.jpg">{{offer.offerName}}</a>
+                    <!-- <a class="product-card">{{offer.offerName}}</a> -->
+                    <div class="offer-div">
+                        <!-- <h5 class="offer-code" #inputTarget>{{offer.offerCode}}</h5> -->
+                        <input type="text" #inputTarget value="{{offer.offerCode}}"/>
+                        <!-- <textarea #inputTarget>{{offer.offerCode}}</textarea> -->
+                        <!-- <button class="offer-select" [ngxClipboard]="inputTarget">copy</button> -->
+                        <button class="offer-select" *ngIf="i !== offerIndex" [ngxClipboard]="inputTarget" (click)="changeText(i)">{{buttonText}}</button>
+                        <button class="offer-select" [ngxClipboard]="inputTarget"  *ngIf="i === offerIndex"  >{{toggleButton}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="noData mt-5" *ngIf="offerArr.length == 0">
+        No offers available !
+        </div>
+</section>
+<!-- <section class="news-part" style="background: url(assets/images/newsletter.jpg) no-repeat center;">
+
+    <div class="row ">
+        <div class="col-md-6">
+            <div class="news-text" style="margin-left: 10%;margin-top: 50px;">
+                <h2 >Get 20% Discount for Subscriber</h2>
+                <p>Lorem ipsum dolor consectetur adipisicing accusantium</p>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <form class="news-form" style="margin-top: 60px;" >
+                <input type="text" placeholder="Enter Your Email Address">
+                <button><span><i class="icofont-ui-email"></i>Subscribe</span></button>
+            </form>
+        </div>
+    </div>
+
+</section> -->
+</div>

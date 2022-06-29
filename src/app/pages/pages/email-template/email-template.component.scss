@@ -1,0 +1,26 @@
+@media (max-width: 767px) {
+    .table-scroll {
+        overflow-x: scroll;
+    }
+
+    .tables {
+        width: 900px;
+    }
+
+    .header-info {
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 400px) {
+    .header-info li p:nth-child(2) {
+        width: 135px !important;
+    }
+}
+.align-items-center {
+    height: 20vh;
+ margin-bottom: 20px;}
+
+// .body{font-size:10px;font-weight:400;font-family:'Rubik', sans-serif}

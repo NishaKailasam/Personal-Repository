@@ -1,0 +1,798 @@
+<!--=====================================
+                    BANNER PART START
+        =======================================-->
+<!-- <section class="inner-section single-banner" style="background: url(assets/images/single-banner.jpg) no-repeat center;">
+    <div class="container">
+        <h2>my profile</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item" aria-current="page">profile</li>
+        </ol>
+    </div>
+</section> -->
+<!--=====================================
+                                    BANNER PART END
+                        =======================================-->
+
+
+<!--=====================================
+                                    PROFILE PART START
+                        =======================================-->
+<div class="mt-5">
+    <section class="inner-section profile-part">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="account-card">
+                        <div class="account-title">
+                            <h4>Your Profile</h4>
+                            <button data-bs-toggle="modal" data-bs-target="#profile-edit" (click)="editProfile()"
+                                (click)="removeProfileValidation()">edit profile</button>
+                            <!-- <button (click)="editProfile()"
+                                >edit profile</button> -->
+                        </div>
+                        <div class="account-content">
+                            <div class="row">
+                                <div class="col-lg-2 profile-img">
+                                    <!-- <div class="profile-image" *ngIf="!profileForm.value.fileUrl">
+                                                                <a href="#"><img src="images/logo.png" ></a>
+                                                            </div> -->
+                                    <div class="profile-image img">
+                                        <a data-bs-toggle="modal" data-bs-target="#profile-edit" (click)="editProfile()"
+                                            (click)="removeProfileValidation()"><img class="img-edit"
+                                                src="{{profile.fileUrl}}"></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 form-group">
+                                    <label for="name">Full Name</label>
+                                    <div class="profile-card ">{{profile.fullName}}</div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 form-group">
+                                    <label for="email">Email</label>
+                                    <div class="profile-card">{{profile.email}}</div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-button ">
+                                        <!-- <button (click)="openModal(passwordChange)">Change password</button> -->
+                                        <button (click)="openModal(passwordChange)">Change password</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="account-card ">
+                        <div class="account-title">
+                            <h4>contact number</h4>
+                            <!-- <button data-bs-toggle="modal" data-bs-target="#contact" (click)="removeValidators()">add
+                                contact</button> -->
+                            <button (click)="openModal(contactAdd)">add
+                                contact</button>
+                        </div>
+                        <div class="account-content">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-4" *ngFor="let contact of contactArr">
+                                    <div class="profile-card contact">
+                                        <label for="title">{{contact.title}}</label>
+                                        <p>{{contact.mobileNo}}</p>
+                                        <ul>
+                                            <li>
+                                                <!-- <button class="edit icofont-edit" title="Edit This"
+                                                    data-bs-toggle="modal" data-bs-target="#contact"
+                                                    (click)="removeValidators()"
+                                                    (click)="editContact(contact)"></button> -->
+                                                <button class="edit icofont-edit" title="Edit This"
+                                                    (click)="editContact(contactAdd,contact.id)"></button>
+                                            </li>
+                                            <li><button class="trash icofont-ui-delete" title="Remove This"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"></button></li>
+                                        </ul>
+                                    </div>
+                                    <div class="modal-change">
+                                        <div class="modal header" id="deleteModal">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <button class="modal-close" data-bs-dismiss="modal"><i
+                                                            class="icofont-close"></i></button>
+                                                    <!-- <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button> -->
+                                                    <div class="modal-form mdl-mdl">
+                                                        <div class="form-title">
+                                                            <h3>Confirm delete</h3>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <h6 class="text-center mt-2">Are you sure want to delete?
+                                                            </h6>
+                                                            <div class="modal-footer p-0 border-0">
+                                                                <div class="col-6 m-0 p-0">
+                                                                    <button type="button" class="shop"
+                                                                        data-bs-dismiss="modal">No</button></div>
+                                                                <div class="col-6 m-0 p-0">
+                                                                    <button type="button" class="form-shop"
+                                                                        (click)="deleteContact(contact)">Yes</button>
+                                                                </div>
+                                                                <!-- <button type="button" class="btn btn-primary  ml-2 " >Cancel</button> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- delete -->
+
+
+                <!-- ------------- -->
+
+                <!-- <h6 class="text-center mt-2">Are you sure want to delete?</h6>
+<div class="text-right mt-2 ">
+    <button type="button" class="btn btn-primary  ml-2 ">Yes</button>
+</div> -->
+                <div class="col-lg-12">
+                    <div class="account-card">
+                        <div class="account-title">
+                            <h4>delivery address</h4>
+                            <!-- <button data-bs-toggle="modal" data-bs-target="#addressModal"
+                                (click)="removeValidation()">add
+                                address</button> -->
+                            <button (click)="openModal(addressModal)" class="addressAdd">add
+                                address</button>
+                        </div>
+                        <div class="text-center" *ngIf="addressArr.length == 0">
+                            <span class="text-center text-muted font-weight-bold">Delivery address not added
+                                yet</span>
+                        </div>
+                        <div class="account-content">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-4 alert fade show " *ngFor="let address of addressArr">
+
+                                    <div class="profile-card address">
+                                        <h6>{{address.addressType}}</h6>
+                                        <p>{{address.landMark}}, {{address.addressLine1}},<br> {{address.postalCode}}, {{address.cityName}}
+                                        </p>
+                                        <ul class="user-action">
+                                            <li><button class="edit icofont-edit" title="Edit This"
+                                                    (click)="editAddress(addressModal,address.id)"></button>
+                                                <i class='bx bxs-edit text-success'></i>
+                                            </li>
+                                            <li><button class="trash icofont-ui-delete" title="Remove This"
+                                                    data-bs-toggle="modal" data-bs-target="#delete-Address"></button>
+                                            </li>
+                                        </ul>
+
+
+                                    </div>
+                                    <div class="modal header " id="delete-Address">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <button class="modal-close" data-bs-dismiss="modal"><i
+                                                        class="icofont-close"></i></button>
+                                                <div class="modal-form mdl-mdl">
+                                                    <div class="form-title">
+                                                        <h3>Confirm delete</h3>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h6 class="text-center mt-2">Are you sure want to delete?
+                                                        </h6>
+                                                        <div class="modal-footer p-0 border-0">
+                                                            <div class="col-6 m-0 p-0">
+                                                                <button type="button" class="shop"
+                                                                    data-bs-dismiss="modal">No</button></div>
+                                                            <div class="col-6 m-0 p-0">
+                                                                <button type="button" class="form-shop"
+                                                                    (click)="deleteAddress(address)">Yes</button></div>
+                                                            <!-- <button type="button" class="btn btn-primary  ml-2 " >Cancel</button> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<!--=====================================
+                                                                PROFILE PART END
+                                                    =======================================-->
+
+
+<!--=====================================
+                                                                MODAL ADD FORM START
+                                                    =======================================-->
+<div class="modal header" id="profile-edit">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+            <form [formGroup]="profileForm">
+                <div class="modal-form">
+                    <div class="form-title">
+                        <h3>edit profile info</h3>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label class="form-label">profile
+                            image</label>
+                        <input class="form-control" id="fileUrl" type="file" class="form-control"
+                            formControlName="fileUrl" (change)="onUploadChange($event)">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Name</label>
+                        <input class="form-control" type="text" formControlName="fullName"
+                            [ngClass]="{ 'is-invalid': profileFormSubmitted && j.fullName.errors}">
+                        <div *ngIf="profileFormSubmitted && j.fullName.errors" class="invalid-feedback">
+                            <div *ngIf="j.fullName.errors.required">*Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">email</label>
+                        <input class="form-control" type="text" formControlName="email"
+                            [ngClass]="{ 'is-invalid': profileFormSubmitted && j.email.errors}">
+                        <div *ngIf="profileFormSubmitted && j.email.errors" class="invalid-feedback">
+                            <div *ngIf="j.email.errors.required">*Required</div>
+                        </div>
+
+                    </div>
+                    <button class="form-btn" type="submit" (click)="onProfileUpdate()">save profile
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- contact add form -->
+<ng-template #contactAdd let-modal>
+    <!-- <div class="modal header" id="contact"> -->
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <button class="modal-close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+            <form [formGroup]="contactForm">
+                <div class="modalForm">
+                    <div class="modal-form">
+                        <div class="form-title" *ngIf="!contactForm.value.id">
+                            <h3>add new contact</h3>
+
+                        </div>
+                        <div class="form-title" *ngIf="contactForm.value.id">
+                            <h3>Update contact</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <ng-select [items]="['PRIMARY','SECONDARY']" name="polId" id="title" bindLabel="name"
+                                bindValue="id" placeholder="Choose" formControlName="title"
+                                [ngClass]="{ 'is-invalid': contactFormSubmitted && k.title.errors}"></ng-select>
+                            <div *ngIf=" contactFormSubmitted && k.title.errors" class="invalid-feedback">
+                                <div *ngIf="k.title.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile">Mobile Number</label>
+                            <input class="form-control" type="number" placeholder="Mobile Number"
+                                formControlName="mobileNo" [ngClass]="{ 'is-invalid': contactFormSubmitted && k.mobileNo.errors ||
+                                    k.mobileNo.invalid && (k.mobileNo.dirty)}">
+                            <div *ngIf="contactFormSubmitted && k.mobileNo.errors || k.mobileNo.invalid &&
+                                (k.mobileNo.dirty)" class="invalid-feedback">
+                                <div *ngIf="k.mobileNo.errors.required">*Required</div>
+                                <div *ngIf="k.mobileNo.errors.pattern ">*Enter 10 digit mobile number</div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="form-btn" type="submit"
+                                (click)="onSubmitContact(modal)">{{buttonText}}</button>
+                        </div>
+                        <!-- <div class="col-12" *ngIf="contactForm.value.id">
+                                <button class="form-btn" type="submit" (click)="onSubmitContact(modal)">update
+                                    contact info</button>
+                            </div> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</ng-template>
+<!-- address add form -->
+<ng-template #addressModal let-modal>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button class="modal-close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+            <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button> -->
+            <form [formGroup]="addressForm">
+                <div class="modal_form">
+                    <div class="form-title" *ngIf="!addressForm.value.id">
+                        <h3>add new address</h3>
+                    </div>
+                    <div class="form-title" *ngIf="addressForm.value.id">
+                        <h3>Update address</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4 form-group">
+                            <label for="addressType">Address Type</label>
+                            <ng-select [items]="['Office','Home']" name="addressType" bindLabel="value" bindValue="id"
+                                placeholder="Choose" formControlName="addressType"
+                                [ngClass]="{ 'is-invalid': addressFormSubmitted && f.addressType.errors}">
+                            </ng-select>
+                            <div *ngIf=" addressFormSubmitted && f.addressType.errors" class="invalid-feedback">
+                                <div *ngIf="f.addressType.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="name">Name</label>
+                            <input type="text" placeholder="name" class="form-control" id="add-new-address"
+                                formControlName="name"
+                                [ngClass]="{ 'is-invalid': addressFormSubmitted && f.name.errors}">
+                            <div *ngIf="addressFormSubmitted && f.name.errors" class="invalid-feedback">
+                                <div *ngIf="f.name.errors.required">*Required</div>
+                            </div>
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="mobileNo">Mobile Number</label>
+                            <span class="">
+
+                                <input formControlName="mobileNo" class="form-control" type="number" id="mobileNo"
+                                    placeholder="Mobile Number" [ngClass]="{ 'is-invalid': addressFormSubmitted && f.mobileNo.errors ||
+
+                                        f.mobileNo.invalid && (f.mobileNo.dirty || f.mobileNo.touched)}"
+                                    id="mobileNo" />
+
+                                <div *ngIf="addressFormSubmitted && f.mobileNo.errors || f.mobileNo.invalid &&
+
+                                    (f.mobileNo.dirty || f.mobileNo.touched) " class="invalid-feedback">
+
+                                    <div *ngIf="f.mobileNo.errors.required">*Required</div>
+
+                                    <div *ngIf="f.mobileNo.errors.pattern">*Please enter 10 digit mobile number
+                                    </div>
+
+                                </div>
+
+                            </span>
+
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="location">Location</label>
+                            <input ngx-google-places-autocomplete placeholder="Location" class="form-control"
+                                id="add-new-address" formControlName="location"
+                                (onAddressChange)="handleAddressChange($event)"
+                                [ngClass]="{ 'is-invalid': addressFormSubmitted && f.location.errors}">
+                            <div *ngIf="addressFormSubmitted && f.location.errors" class="invalid-feedback">
+                                <div *ngIf="f.location.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="latitude">Latitude</label>
+                            <input type="text" class="form-control" placeholder="Latitude" id="add-new-address"
+                                formControlName="latitude"
+                                [ngClass]="{ 'is-invalid': addressFormSubmitted && f.latitude.errors}">
+                            <div *ngIf="addressFormSubmitted && f.latitude.errors" class="invalid-feedback">
+                                <div *ngIf="f.latitude.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="longitude">Longitude</label>
+                            <input type="text" placeholder="Longitude" class="form-control" id="add-new-address"
+                                formControlName="longitude"
+                                [ngClass]="{ 'is-invalid': addressFormSubmitted && f.longitude.errors}">
+                            <div *ngIf="addressFormSubmitted && f.longitude.errors" class="invalid-feedback">
+                                <div *ngIf="f.longitude.errors.required">*Required</div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            <label for="addressLine1">Address 1</label>
+                            <input type="text" placeholder="address1" class="form-control" id="add-new-address"
+                                formControlName="addressLine1"
+                                [ngClass]="{ 'is-invalid': addressFormSubmitted && f.addressLine1.errors}" />
+                            <div *ngIf="addressFormSubmitted && f.addressLine1.errors" class="invalid-feedback">
+                                <div *ngIf="f.addressLine1.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="addressLine2">Address 2</label>
+                            <input type="text" placeholder="address2" class="form-control" id="add-new-address"
+                                formControlName="addressLine2" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="landMark">Land Mark</label>
+                            <input placeholder="Land Mark" type="text" class="form-control" id="add-new-address"
+                                formControlName="landMark"
+                                [ngClass]="{ 'is-invalid': addressFormSubmitted && f.landMark.errors}">
+                            <div *ngIf="addressFormSubmitted && f.landMark.errors" class="invalid-feedback">
+                                <div *ngIf="f.landMark.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="postalCode">Postal Code</label>
+                            <input class="form-control" id="add-new-address" type="number" placeholder="Postal Code"
+                                formControlName="postalCode"
+                                [ngClass]="{ 'is-invalid': addressFormSubmitted && f.postalCode.errors}">
+                            <div *ngIf="addressFormSubmitted && f.postalCode.errors" class="invalid-feedback">
+                                <div *ngIf="f.postalCode.errors.required">*Required
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            <label for="country">Country</label>
+                            <ng-select [items]="countryArr" name="polId" id="country" bindLabel="name" bindValue="id"
+                                (change)="getState($event.id)" placeholder="Choose" formControlName="countryId"
+                                [ngClass]="{ 'is-invalid': addressFormSubmitted && f.countryId.errors}">
+                            </ng-select>
+                            <div *ngIf="addressFormSubmitted && f.countryId.errors" class="invalid-feedback">
+                                <div *ngIf="f.countryId.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="state">State</label>
+                            <ng-select [items]="stateArr" name="polId" id="state" bindLabel="name" bindValue="id"
+                                (change)="getCity($event)" placeholder="Choose" formControlName="stateId"
+                                [ngClass]="{ 'is-invalid': addressFormSubmitted && f.stateId.errors}">
+                            </ng-select>
+                            <div *ngIf="addressFormSubmitted && f.stateId.errors" class="invalid-feedback">
+                                <div *ngIf="f.stateId.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="cityId">City</label>
+                            <ng-select [items]="cityArr" name="polId" id="city" bindLabel="name" bindValue="id"
+                                placeholder="Choose" formControlName="cityId"
+                                [ngClass]="{ 'is-invalid': addressFormSubmitted && f.cityId.errors}">
+                            </ng-select>
+                            <div *ngIf="addressFormSubmitted && f.cityId.errors" class="invalid-feedback">
+                                <div *ngIf="f.cityId.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="form-btn" type="submit" (click)="onSubmit(modal)">{{buttonText}}</button>
+                        </div>
+                        <!-- <div class="col-12" *ngIf="addressForm.value.id">
+                                <button class="form-btn" type="submit" (click)="onSubmit(modal)">update
+                                    address</button>
+                            </div> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+<!-- change-password -->
+
+<ng-template #passwordChange let-modal>
+    <!-- <div class="modal header" > -->
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button class="modal-close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+            <form [formGroup]="passwordForm">
+                <div class="modal-form">
+                    <div class="form-title">
+                        <h2>any issue?</h2>
+                        <p>Make sure your current password is strong</p>
+                    </div>
+                    <div class="user-form-card">
+                        <div class="form-group inner-addon right-addon">
+                            <div class="input-group input-group-merge form-password-toggle">
+                                <input [type]="passwordTextType ? 'text' : 'password'" formControlName="oldPassword"
+                                    class="form-control pwd-control " style="border-radius: 5px;"
+                                    [ngClass]="{ 'is-invalid error': passwordFormSubmitted && i.oldPassword.errors }"
+                                    placeholder="Old Password" aria-describedby="login-password" tabindex="2" />
+                                <div class="input-border">
+                                    <i alt="show" style="margin-right: 30px ;" class="fa fa-eye eye-show mt-3"
+                                        (click)="passwordTextType = !passwordTextType"
+                                        [class.hide]="!passwordTextType"></i>
+                                    <i alt="hide" style="margin-right: 30px ;" class="fa fa-eye-slash eye-hide mt-3"
+                                        (click)="passwordTextType = !passwordTextType"
+                                        [class.hide]="passwordTextType"></i>
+                                </div>
+                            </div>
+                            <div *ngIf="passwordFormSubmitted && i.oldPassword.errors" class="invalid-feedback"
+                                [ngClass]="{ 'd-block': passwordFormSubmitted && i.oldPassword.errors }">
+                                <div *ngIf="i.oldPassword.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group inner-addon right-addon">
+                            <div class="input-group input-group-merge form-password-toggle">
+                                <input [type]="passwordText ? 'text' : 'password'" formControlName="newPassword"
+                                    class="form-control pwd-control " style="border-radius: 5px;"
+                                    [ngClass]="{ 'is-invalid error': passwordFormSubmitted && i.newPassword.errors }"
+                                    placeholder="New Password" aria-describedby="login-password" tabindex="2"
+                                    (change)="mustMatch()" />
+                                <div class="input-border">
+                                    <i alt="show" style="margin-right: 30px ;" class="fa fa-eye eye-show mt-3"
+                                        (click)="passwordText = !passwordText" [class.hide]="!passwordText"></i>
+                                    <i alt="hide" style="margin-right: 30px ;" class="fa fa-eye-slash eye-hide mt-3"
+                                        (click)="passwordText = !passwordText" [class.hide]="passwordText"></i>
+                                </div>
+                            </div>
+                            <div *ngIf="passwordFormSubmitted && i.newPassword.errors" class="invalid-feedback"
+                                [ngClass]="{ 'd-block': passwordFormSubmitted && i.newPassword.errors }">
+                                <div *ngIf="i.newPassword.errors.required">*Required</div>
+
+                            </div>
+                            <span *ngIf="pwd" style="color: rgb(224, 67, 67); font-size: small;"> {{pwd}} </span>
+
+                        </div>
+                        <div class="form-group inner-addon right-addon">
+                            <div class="input-group input-group-merge form-password-toggle">
+                                <input [type]="confirmPasswordText ? 'text' : 'password'"
+                                    formControlName="confirmPassword" class="form-control pwd-control "
+                                    style="border-radius: 5px;"
+                                    [ngClass]="{ 'is-invalid error': passwordFormSubmitted && i.confirmPassword.errors }"
+                                    placeholder="Confirm Password" aria-describedby="login-password" tabindex="2" />
+                                <div class="input-border">
+                                    <i alt="show" style="margin-right: 30px ;" class="fa fa-eye eye-show mt-3"
+                                        (click)="confirmPasswordText = !confirmPasswordText"
+                                        [class.hide]="!confirmPasswordText"></i>
+                                    <i alt="hide" style="margin-right: 30px ;" class="fa fa-eye-slash eye-hide mt-3"
+                                        (click)="confirmPasswordText = !confirmPasswordText"
+                                        [class.hide]="confirmPasswordText"></i>
+                                </div>
+                            </div>
+                            <div *ngIf="passwordFormSubmitted && i.confirmPassword.errors" class="invalid-feedback"
+                                [ngClass]="{ 'd-block': passwordFormSubmitted && i.confirmPassword.errors }">
+                                <div *ngIf="i.confirmPassword.errors.required">*Required</div>
+                                <div *ngIf="i.confirmPassword.errors.mustMatch">*Password mismatch</div>
+
+                            </div>
+                        </div>
+                        <div class="form-button">
+                            <button type="submit" (click)="onClick(modal)">change
+                                password</button>
+                        </div>
+                        <!-- <div class="user-form-remind">
+                            <p>Go Back To<a routerLink="/login" data-bs-dismiss="modal">login here</a></p>
+                        </div> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- </div>  -->
+
+    <ng-template #passwordChange let-modal>
+        <!-- <div class="modal header" > -->
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <button class="modal-close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+                <form [formGroup]="passwordForm">
+                    <div class="modal-form">
+                        <div class="form-title">
+                            <h2>any issue?</h2>
+                            <p>Make sure your current password is strong</p>
+                        </div>
+                        <div class="user-form-card">
+                            <!-- <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Old password"
+                                    formControlName="oldPassword"
+                                    [ngClass]="{ 'is-invalid': passwordFormSubmitted && i.oldPassword.errors}">
+                                <div *ngIf="passwordFormSubmitted && i.oldPassword.errors" class="invalid-feedback">
+                                    <div *ngIf="i.passwordFormSubmitted.errors.required">*Required</div>
+                                </div>
+                            </div> -->
+                            <div class="form-group inner-addon right-addon">
+                                <div class="input-group input-group-merge form-password-toggle">
+                                    <input [type]="passwordTextType ? 'text' : 'password'" formControlName="oldPassword"
+                                        class="form-control pwd-control " style="border-radius: 5px;"
+                                        [ngClass]="{ 'is-invalid error': passwordFormSubmitted && i.oldPassword.errors }"
+                                        placeholder="············" aria-describedby="login-password" tabindex="2" />
+                                    <div class="input-border">
+                                        <i alt="show" class="far fa-eye eye-show mt-1"
+                                            (click)="passwordTextType = !passwordTextType"
+                                            [class.hide]="!passwordTextType"></i>
+                                        <i alt="hide" class="far fa-eye-slash eye-hide mt-1"
+                                            (click)="passwordTextType = !passwordTextType"
+                                            [class.hide]="passwordTextType"></i>
+                                    </div>
+                                </div>
+                                <div *ngIf="passwordFormSubmitted && i.oldPassword.errors" class="invalid-feedback"
+                                    [ngClass]="{ 'd-block': passwordFormSubmitted && i.oldPassword.errors }">
+                                    <div *ngIf="i.oldPassword.errors.required">*Required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="New password"
+                                    formControlName="newPassword"
+                                    [ngClass]="{ 'is-invalid': passwordFormSubmitted && i.newPassword.errors}">
+                                <div *ngIf="passwordFormSubmitted && i.newPassword.errors" class="invalid-feedback">
+                                    <div *ngIf="i.newPassword.errors.required">*Required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Confirm New password"
+                                    formControlName="confirmPassword"
+                                    [ngClass]="{ 'is-invalid': passwordFormSubmitted && i.confirmPassword.errors}">
+                                <div *ngIf="passwordFormSubmitted && i.confirmPassword.errors" class="invalid-feedback">
+                                    <div *ngIf="i.confirmPassword.errors.required">*Required
+                                    </div>
+                                    <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords
+                                        must match</div>
+                                </div>
+                            </div>
+                            <div class="form-button">
+                                <button type="submit" (click)="onClick(modal)">change
+                                    password</button>
+                            </div>
+                            <!-- <div class="user-form-remind">
+                            <p>Go Back To<a routerLink="/login" data-bs-dismiss="modal">login here</a></p>
+                        </div> -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- </div> -->
+    </ng-template>
+    <!-- payment chform -->
+    <div class="modal header" id="payment-add">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+                <div class="form-title">
+                    <h3>add new payment</h3>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">card
+                        number</label>
+                    <input class="form-control" type="text" placeholder="Enter your card number">
+                </div>
+                <button class="form-btn" type="submit">save card
+                    info</button>
+            </div>
+        </div>
+    </div>
+
+    <!--=====================================
+                                                                MODAL EDIT FORM START
+                                                    =======================================-->
+    <!-- profile edit form -->
+    <!-- <div class="modal header" id="profileEdit"> -->
+    <!-- <ng-template #profileModal let-modal> -->
+    <!-- <div class="modal header" id="contact"> -->
+
+    <!-- <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+                        <form [formGroup]="profileForm">
+                            <div class="modal-form">
+                                <div class="form-title">
+                                    <h3>edit profile info</h3>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">profile
+                                        image</label>
+                                    <input class="form-control" id="fileUrl" type="file" class="form-control"
+                                        formControlName="fileUrl" (change)="onUploadChange($event)">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Name</label>
+                                    <input class="form-control" type="text" formControlName="fullName">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">email</label>
+                                    <input class="form-control" type="text" formControlName="email">
+
+                                </div>
+                                <button class="form-btn" type="submit" (click)="onProfileUpdate()">save profile
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+        </ng-template> -->
+
+
+    <!--=====================================
+                                                                MODAL EDIT FORM END
+                                                    =======================================-->
+
+
+    <!--=====================================
+                                                NEWSLETTER PART START
+                                    =======================================-->
+    <!-- <section class="news-part" style="background: url(assets/images/newsletter.jpg) no-repeat center;">
+
+        <div class="row ">
+            <div class="col-md-6">
+                <div class="news-text" style="margin-left: 10%;margin-top: 50px;">
+                    <h2>Get 20% Discount for Subscriber</h2>
+                    <p>Lorem ipsum dolor consectetur adipisicing accusantium</p>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <form class="news-form" style="margin-top: 60px;">
+                    <input type="text" placeholder="Enter Your Email Address">
+                    <button><span><i class="icofont-ui-email"></i>Subscribe</span></button>
+                </form>
+            </div>
+        </div>
+
+    </section> -->
+
+    <!--=====================================
+                                                NEWSLETTER PART END
+                                    =======================================-->
+
+
+    <!--=====================================
+                                                INTRO PART START
+                                    =======================================-->
+    <!-- <section class="intro-part">
+        <div class="container">
+            <div class="row intro-content">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="intro-wrap">
+                        <div class="intro-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="intro-content">
+                            <h5>free home delivery</h5>
+                            <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="intro-wrap">
+                        <div class="intro-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <div class="intro-content">
+                            <h5>instant return policy</h5>
+                            <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="intro-wrap">
+                        <div class="intro-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="intro-content">
+                            <h5>quick support system</h5>
+                            <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="intro-wrap">
+                        <div class="intro-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="intro-content">
+                            <h5>secure payment way</h5>
+                            <p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- </div> -->

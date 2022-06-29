@@ -1,0 +1,243 @@
+.form-row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -5px;
+    margin-left: -5px;
+  }
+  .address{
+    font-size: small;
+    height: 140px;
+  }
+
+.form-row>.col,
+.form-row>[class*="col-"] {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.modal-body {
+    padding-bottom: 0;
+    padding-top: 0;
+    margin: auto 0;
+    flex-grow: 0;
+    width: auto;
+}
+
+.modal-body {
+    &:focus {
+        outline: none;
+    }
+}
+
+ ::ng-deep .pac-container {
+    z-index: 10000 !important;
+}
+
+.modal-content {
+    border: none;
+    background: none;
+    border-radius: 0px;
+    max-width: max-content;
+}
+
+.modal_form {
+    width: 389px;
+    padding: 30px;
+    border-radius: 6px;
+    background: var(--white);
+}
+
+@media (max-width: 400px) {
+    .modal_form,
+    .modal-dialog {
+        width: 300px;
+    }
+}
+
+.addressAdd {
+    width: 122px;
+    height: 36px;
+}
+
+@media (max-width: 1100px) {
+    .modal-close {
+        right: 6%;
+        top: -17px;
+        transform: translateX(50%);
+    }
+}
+
+@media (max-width: 1100px) {
+    .profile-img {
+        margin-left: 30px;
+    }
+}
+
+.delete {
+    width: 10px;
+    height: 10px;
+}
+
+.profile-card {
+    // margin-top: 20px;
+    padding: 15px;
+}
+
+.btn-size {
+    width: 50px;
+    height: 30px;
+    border-radius: 7px;
+    padding: 5px;
+}
+
+.deleteButton {
+    margin-top: 30px
+}
+
+.img {
+    width: 200px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.img-edit {
+    width: 100px;
+    height: 70px;
+}
+
+.bttn-bttn {
+    padding-top: 5px;
+    padding-bottom: 20px;
+    line-height: 15px;
+}
+
+.mdl-mdl {
+    width: 400px;
+    height: 200px;
+}
+
+.hide {
+    display: none;
+}
+
+.inner-addon {
+    position: relative;
+}
+
+.inner-addon .fa,
+.inner-addon .fas {
+    position: absolute;
+    // z-index: 100;
+    cursor: pointer;
+}
+
+.right-addon .fa,
+.right-addon .fas {
+    right: 0px;
+}
+
+.left-addon input {
+    padding-left: 30px;
+}
+
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
+
+#mobileNo{
+       width: 95%;
+  height: 37px;
+  border-radius: 6px;
+  padding: 0px 20px 2px;
+  display: flex;
+}
+#add-new-address{
+      width: 95%;
+  height: 37px;
+  border-radius: 6px;
+  padding: 0px 20px 2px;
+  display: flex;
+}
+
+.form-button{
+
+  margin-top: 33px !important;
+}
+.right-addon input {
+    padding-right: 30px;
+}
+
+#mobileNo {
+    width: 95%;
+    height: 37px;
+    border-radius: 6px;
+    padding: 0px 20px 2px;
+    display: flex;
+}
+
+#add-new-address {
+    width: 95%;
+    height: 37px;
+    border-radius: 6px;
+    padding: 0px 20px 2px;
+    display: flex;
+}
+
+.form-button {
+    margin-top: 33px !important;
+}
+
+.address {
+    height: 140px;
+}
+
+.right-addon input {
+    padding-right: 30px;
+}
+
+@media(min-width: 320px)and(max-width: 768px) {
+    .modal-close {
+        margin-right: 135px;
+    }
+}
+
+.addressAdd {
+    width: 122px;
+    height: 36px;
+}
+.container{
+    max-width:100%; 
+    overflow-x:hidden; 
+}
+.form-shop{
+    width: 40%;
+    height: 35px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 35px;
+    margin-left: 100px;
+     margin-top: 25px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: var(--white);
+    background: var(--primary);
+  }
+ .shop{
+  width: 40%;
+  height: 35px;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 25px;
+  line-height: 35px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: var(--white);
+  background: var(--primary);
+  background-color: rgb(199, 28, 28);
+ }

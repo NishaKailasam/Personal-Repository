@@ -1,0 +1,70 @@
+
+.form-shop {
+    width: 40%;
+    height: 45px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 45px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--primary);
+  }
+  .login-text{
+    width: 40%;
+    height: 45px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 45px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: var(--white);
+    background: var(--primary);
+  }
+  .checkout-label{
+    cursor: pointer;
+  }
+  .action-minus,.action-plus{
+    padding-top: 2px;
+  }
+
+  @media(min-width:320px)and(max-width:1024px){
+  .header-form,fas fa-search.active{
+    display: flex;
+  }
+  }
+  @media(min-width: 320px)and(max-width: 768px) {
+    .modal-close {
+        margin-right: 135px;
+    }
+}
+.logo{
+  margin-right: 90px;
+}
+// .logo-img{
+//   padding-left: 45px;
+//   padding-right: 50px;
+// }
+@media (max-width: 450px){
+  .cart-close {
+      left: 85%;
+      top: 0px;
+      bottom: inherit;
+      transform: translateX(-50%);
+      border-radius: 50px 50px 0px 0px;
+      box-shadow: 0px -49px 10px 0px rgb(0 0 0 / 15%);
+       margin-left: 27px;
+       font-size: 20px;
+   }
+  }
+  .cart-media a img {
+    width: 85px;
+    height: 100px;
+    border-radius: 8px;
+}
+// .img-name{
+//   margin-right: 300px;
+// }
